@@ -1,0 +1,17 @@
+[
+  {
+    "status": "NOT_STARTED"
+  },
+  {
+    "status": "JUST_STARTED"
+  },
+  {
+    "status": "IN_PROGRESS"
+  },
+  {
+    "status": "ALMOST_COMPLETE"
+  },
+  {
+    "status": "COMPLETED"
+  }
+]
