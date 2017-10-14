@@ -1,7 +1,7 @@
 [
   {
      "id": 1,
-     "status": "COMPLETED",
+     "status": "CREATED",
      "taskDetails": {
         "title": "Task1",
         "content": "Complete cleaning house",
@@ -17,7 +17,7 @@
   },
   {
      "id": 2,
-     "status": "IN_PROGRESS",
+     "status": "NOT_STARTED",
      "taskDetails": {
         "title": "Task1",
         "content": "Complete cleaning house",
@@ -33,7 +33,7 @@
   },
   {
      "id": 3,
-     "status": "IN_PROGRESS",
+     "status": "JUST_STARTED",
      "taskDetails": {
         "title": "Task1",
         "content": "Complete cleaning house",
@@ -49,7 +49,7 @@
   },
   {
      "id": 4,
-     "status":"NOT_STARTED",
+     "status":"IN_PROGRESS",
      "taskDetails": {
         "title": "Task1",
         "content": "Complete cleaning house",
@@ -65,7 +65,7 @@
   },
   {
      "id": 5,
-     "status": "COMPLETED",
+     "status": "ALMOST_COMPLETED",
      "taskDetails": {
         "title": "Task1",
         "content": "Complete cleaning house",
@@ -81,7 +81,7 @@
   },
   {
      "id": 6,
-     "status": "POSTPONED",
+     "status": "COMPLETED",
      "taskDetails": {
         "title": "Task1",
         "content": "Complete cleaning house",
@@ -94,5 +94,21 @@
            "finishTime": "10-12-2014"
         }
      }
-  }
+  },
+  {
+    "id": 7,
+    "status": "POSTPONED",
+    "taskDetails": {
+       "title": "Task1",
+       "content": "Complete cleaning house",
+       "expectedTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+       },
+       "actualTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+       }
+    }
+ }
 ]
