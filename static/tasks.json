@@ -1,104 +1,132 @@
 [
   {
-     "id": 1,
-     "status": "CREATED",
-     "taskDetails": {
-        "title": "Task1",
-        "content": "Complete cleaning house",
-        "expectedTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        },
-        "actualTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        }
-     }
+    "id": 1,
+    "status": "CREATED",
+    "taskDetails": {
+      "taskType": {
+        "title" : "career",
+        "bgColor" : "yellow"
+      },
+      "title": "Task1",
+      "content": "Complete cleaning house",
+      "expectedTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      },
+      "actualTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      }
+    }
   },
   {
-     "id": 2,
-     "status": "NOT_STARTED",
-     "taskDetails": {
-        "title": "Task1",
-        "content": "Complete cleaning house",
-        "expectedTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        },
-        "actualTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        }
-     }
+    "id": 2,
+    "status": "NOT_STARTED",
+    "taskDetails": {
+      "taskType": {
+        "title" : "housing",
+        "bgColor" : "#a2a3a4"
+      },
+      "title": "Task1",
+      "content": "Complete cleaning house",
+      "expectedTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      },
+      "actualTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      }
+    }
   },
   {
-     "id": 3,
-     "status": "JUST_STARTED",
-     "taskDetails": {
-        "title": "Task1",
-        "content": "Complete cleaning house",
-        "expectedTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        },
-        "actualTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        }
-     }
+    "id": 3,
+    "status": "JUST_STARTED",
+    "taskDetails": {
+      "taskType": {
+        "title" : "random",
+        "bgColor" : "#345678"
+      },
+      "title": "Task1",
+      "content": "Complete cleaning house",
+      "expectedTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      },
+      "actualTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      }
+    }
   },
   {
      "id": 4,
      "status":"IN_PROGRESS",
      "taskDetails": {
-        "title": "Task1",
-        "content": "Complete cleaning house",
-        "expectedTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        },
-        "actualTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        }
-     }
+      "taskType": {
+        "title" : "creative",
+        "bgColor" : "#234567"
+      },
+      "title": "Task1",
+      "content": "Complete cleaning house",
+      "expectedTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      },
+      "actualTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      }
+    }
   },
   {
-     "id": 5,
-     "status": "ALMOST_COMPLETED",
-     "taskDetails": {
-        "title": "Task1",
-        "content": "Complete cleaning house",
-        "expectedTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        },
-        "actualTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        }
-     }
+    "id": 5,
+    "status": "ALMOST_COMPLETED",
+    "taskDetails": {
+      "taskType": {
+        "title" : "personal",
+        "bgColor" : "#c0c0c0"
+      },
+      "title": "Task1",
+      "content": "Complete cleaning house",
+      "expectedTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      },
+      "actualTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      }
+    }
   },
   {
-     "id": 6,
-     "status": "COMPLETED",
-     "taskDetails": {
-        "title": "Task1",
-        "content": "Complete cleaning house",
-        "expectedTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        },
-        "actualTimes": {
-           "startTime": "10-12-2014",
-           "finishTime": "10-12-2014"
-        }
-     }
+    "id": 6,
+    "status": "COMPLETED",
+    "taskDetails": {
+      "taskType": {
+        "title" : "Emergency",
+        "bgColor" : "#123456"
+      },
+      "title": "Task1",
+      "content": "Complete cleaning house",
+      "expectedTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      },
+      "actualTimes": {
+          "startTime": "10-12-2014",
+          "finishTime": "10-12-2014"
+      }
+    }
   },
   {
     "id": 7,
     "status": "POSTPONED",
     "taskDetails": {
+      "taskType": {
+        "title" : "personal",
+        "bgColor" : "red"
+      },
        "title": "Task1",
        "content": "Complete cleaning house",
        "expectedTimes": {
@@ -110,5 +138,25 @@
           "finishTime": "10-12-2014"
        }
     }
- }
+  },
+  {
+    "id": 8,
+    "status": "POSTPONED",
+    "taskDetails": {
+      "taskType": {
+        "title" : "personal",
+        "bgColor" : "#c0c0c0"
+      },
+      "title": "Task1",
+      "content": "Complete cleaning house",
+      "expectedTimes": {
+        "startTime": "10-12-2014",
+        "finishTime": "10-12-2014"
+      },
+      "actualTimes": {
+        "startTime": "10-12-2014",
+        "finishTime": "10-12-2014"
+      }
+    }
+  }
 ]
