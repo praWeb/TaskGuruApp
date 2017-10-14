@@ -1,0 +1,98 @@
+[
+  {
+     "id": 1,
+     "status": "COMPLETED",
+     "taskDetails": {
+        "title": "Task1",
+        "content": "Complete cleaning house",
+        "expectedTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        },
+        "actualTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        }
+     }
+  },
+  {
+     "id": 2,
+     "status": "IN_PROGRESS",
+     "taskDetails": {
+        "title": "Task1",
+        "content": "Complete cleaning house",
+        "expectedTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        },
+        "actualTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        }
+     }
+  },
+  {
+     "id": 3,
+     "status": "IN_PROGRESS",
+     "taskDetails": {
+        "title": "Task1",
+        "content": "Complete cleaning house",
+        "expectedTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        },
+        "actualTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        }
+     }
+  },
+  {
+     "id": 4,
+     "status":"NOT_STARTED",
+     "taskDetails": {
+        "title": "Task1",
+        "content": "Complete cleaning house",
+        "expectedTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        },
+        "actualTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        }
+     }
+  },
+  {
+     "id": 5,
+     "status": "COMPLETED",
+     "taskDetails": {
+        "title": "Task1",
+        "content": "Complete cleaning house",
+        "expectedTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        },
+        "actualTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        }
+     }
+  },
+  {
+     "id": 6,
+     "status": "POSTPONED",
+     "taskDetails": {
+        "title": "Task1",
+        "content": "Complete cleaning house",
+        "expectedTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        },
+        "actualTimes": {
+           "startTime": "10-12-2014",
+           "finishTime": "10-12-2014"
+        }
+     }
+  }
+]

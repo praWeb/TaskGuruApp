@@ -2,28 +2,41 @@
 import React, { Component } from 'react'
 
 // React native
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
+
+// Images
+import * as images from './../images/images'
+
+// Static data
+import tasks from './../static/tasks.json'
 
 export default class TaskLists extends Component {
+  renderTask (task) {
+    return (
+      <View style={styles.taskView}>
+        <View>
+          <Image style={styles.taskIcon} source={images[task.status]} />
+        </View>
+        <View>  
+          <Text style={styles.taskTitle}>
+            { task.taskDetails.title }
+          </Text>
+          <Text style={styles.taskContent}> { task.taskDetails.content } </Text>
+        </View>
+      </View>
+    )
+  }
+
   render () {
     return (
       <View>
         <View>
           <Text> Tasks Lists </Text>
           <FlatList
-            data={[
-              { title: 'Task1', id: 1 },
-              { title: 'Task2', id: 2 },
-              { title: 'Task3', id: 3 },
-              { title: 'Task4', id: 4 },
-              { title: 'Task5', id: 5 },
-              { title: 'Task6', id: 6 },
-              { title: 'Task7', id: 7 },
-              { title: 'Task8', id: 8 },
-              { title: 'Task9', id: 9 },
-              { title: 'Task10', id: 10 }
-            ]}
-            renderItem={({item}) => <Text style={styles.task}> { item.title } </Text>}
+            data={tasks}
+            renderItem={({item}) =>
+              this.renderTask(item)
+            }
             keyExtractor={(item, index) => item.id}
           />
         </View>
@@ -33,15 +46,22 @@ export default class TaskLists extends Component {
 }
 
 const styles = StyleSheet.create({
-  taskContainer: {
-    flex: 1,
-    padding: 10
-  },
-  task: {
+  taskView: {
     width: '100%',
+    paddingVertical: 10,
+    flexDirection: 'row'
+  },
+  taskIcon: {
     height: 50,
-    paddingTop: 10,
-    paddingBottom: 10,
+    width: 5,
+    marginTop: 5
+  },
+  taskTitle: {
+    fontWeight: 'bold',
     fontSize: 18
+  },
+  taskContent: {
+    paddingTop: 5,
+    fontSize: 16
   }
 })
