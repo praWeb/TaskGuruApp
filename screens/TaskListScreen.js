@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 // React native
 import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
 
-// Images
-import * as images from './../images/images'
+// App Status Colours
+import * as colors from './../constants/statusColors.json'
 
 // Static data
 import tasks from './../static/tasks.json'
@@ -14,10 +14,7 @@ export default class TaskLists extends Component {
   renderTask (task) {
     return (
       <View style={styles.taskView}>
-        <View>
-          <Image style={styles.taskIcon} source={images[task.status]} />
-        </View>
-        <View>  
+        <View style={{ borderLeftWidth: 15, borderLeftColor: colors[task.status], borderStyle: 'solid' }}>
           <Text style={styles.taskTitle}>
             { task.taskDetails.title }
           </Text>
@@ -29,7 +26,7 @@ export default class TaskLists extends Component {
 
   render () {
     return (
-      <View>
+      <View style={styles.taskContainer}>
         <View>
           <Text> Tasks Lists </Text>
           <FlatList
@@ -46,6 +43,9 @@ export default class TaskLists extends Component {
 }
 
 const styles = StyleSheet.create({
+  taskContainer: {
+    backgroundColor: '#fff'
+  },
   taskView: {
     width: '100%',
     paddingVertical: 10,
