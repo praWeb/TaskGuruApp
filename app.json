@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "sdkVersion": "21.0.0",
+    "name": "TaskGuru",
+    "icon": "./images/app-icon.png",
+    "version": "1.0.0",
+    "slug": "taskguru",
+    "ios": {
+      "bundleIdentifier": "com.praweb.taskguru"
+    },
+    "android": {
+      "package": "com.praweb.taskguru"
+    }
+  }
+}
