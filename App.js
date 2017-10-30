@@ -1,5 +1,7 @@
 // React
 import React, { Component } from 'react'
+import { ApolloProvider } from 'react-apollo'
+import ApolloClient, { createNetworkInterface } from 'apollo-client'
 
 // React Native
 import { StackNavigator } from 'react-navigation'

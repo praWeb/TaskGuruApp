@@ -1,0 +1,38 @@
+# project: cj9elu5jl59n301406gzmd5ll
+# version: 14
+
+type User @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String! @isUnique
+  password: String!
+  tasks: [Task!]! @relation(name: "TaskOnUser")
+}
+
+type File @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  contentType: String!
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  url: String! @isUnique
+}
+
+type Status @model {
+  id: ID! @isUnique
+  percentCompleted: Int!
+  task: Task @relation(name: "TaskOnStatus")
+  title: String!
+}
+
+type Task @model {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  status: Status! @relation(name: "TaskOnStatus")
+  title: String!
+  updatedAt: DateTime!
+  user: User! @relation(name: "TaskOnUser")
+}
