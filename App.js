@@ -9,10 +9,14 @@ import { StackNavigator } from 'react-navigation'
 // Screens
 import HomeScreen from './screens/HomeScreen'
 import TasksListScreen from './screens/TaskListScreen'
+import TaskCreateScreen from './screens/TaskCreateScreen'
+import UserRegistrationScreen from './screens/UserRegistrationScreen'
 
 const HomeNavigation = StackNavigator({
   Home: { screen: HomeScreen },
-  TaskLists: { screen: TasksListScreen }
+  TaskLists: { screen: TasksListScreen },
+  TaskCreate: { screen: TaskCreateScreen },
+  UserRegistration: { screen: UserRegistrationScreen }
 })
 
 export default class App extends Component {
