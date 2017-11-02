@@ -32,12 +32,6 @@ export default class App extends Component {
   render () {
     return (
       <ApolloProvider client={client}>
-        {/* <Router history={nativeHistory}>
-          <Route path="/" component={HomeScreen} />
-          <Route path="/TaskLists" component={TasksListScreen} />
-          <Route path="/TaskCreate" component={TaskCreateScreen} />
-          <Route path="/UserRegistration" component={UserRegistrationScreen} />
-        </Router> */}
         <HomeNavigation />
       </ApolloProvider>
     )

@@ -1,5 +1,5 @@
 # project: cj9elu5jl59n301406gzmd5ll
-# version: 16
+# version: 17
 
 type User @model {
   id: ID! @isUnique
@@ -25,14 +25,14 @@ type File @model {
 type Status @model {
   id: ID! @isUnique
   percentCompleted: Int!
-  task: Task @relation(name: "TaskOnStatus")
   title: String!
+  tasks: [Task!]! @relation(name: "TaskOnStatus")
 }
 
 type Task @model {
   createdAt: DateTime!
   id: ID! @isUnique
-  status: Status! @relation(name: "TaskOnStatus")
+  status: Status @relation(name: "TaskOnStatus")
   title: String!
   updatedAt: DateTime!
   user: User! @relation(name: "TaskOnUser")

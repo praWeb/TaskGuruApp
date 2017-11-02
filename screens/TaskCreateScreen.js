@@ -1,10 +1,9 @@
 // React
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-native'  
 
 // React Native
 import { View, Text, TextInput, Button } from 'react-native'
-
+import { BrowserRouter as Router } from 'react-router-native'
 // Graphql
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -15,9 +14,9 @@ class TaskCreateScreen extends Component {
 
     this.state = {
       title: '',
+      description: '',
       userId: 'cj9j01hq708vy0156jr034loe',
-      statusId: 'cj9izircjn6ti0104d7pluu18',
-      description: ''
+      statusId: 'cj9izircjn6ti0104d7pluu18'
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -25,6 +24,8 @@ class TaskCreateScreen extends Component {
   }
 
   handleSubmit () {
+    console.log(this.state)
+    const { navigate } = this.props.navigation
     this.props.mutate({
       variables: {
         title: this.state.title,
@@ -33,7 +34,7 @@ class TaskCreateScreen extends Component {
         statusId: this.state.statusId
       }
     }).then((response) => {
-      console.log(response)
+      navigate('TaskLists')
     })
   }
 
@@ -78,5 +79,4 @@ mutation createTask($title: String!, $description: String!, $userId: ID!, $statu
   }
 }
 `
-
 export default graphql(createTask)(TaskCreateScreen)
