@@ -20,6 +20,10 @@ export default class Introduction extends Component {
             User Registration
           </Text>
           <Button
+            onPress={() => navigate('TaskCreate')}
+            title='Create Tasks'
+          />
+          <Button
             onPress={() => navigate('TaskLists')}
             title='View Tasks'
           />
@@ -35,10 +39,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    paddingBottom: 15
+    paddingBottom: 5
   },
   image: {
-    marginTop: 30
+    marginTop: 5
   },
   container: {
     alignItems: 'center',

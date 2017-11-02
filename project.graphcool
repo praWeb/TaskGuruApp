@@ -1,5 +1,5 @@
 # project: cj9elu5jl59n301406gzmd5ll
-# version: 14
+# version: 16
 
 type User @model {
   id: ID! @isUnique
@@ -7,6 +7,7 @@ type User @model {
   updatedAt: DateTime!
   email: String! @isUnique
   password: String!
+  name: String!
   tasks: [Task!]! @relation(name: "TaskOnUser")
 }
 
@@ -35,4 +36,5 @@ type Task @model {
   title: String!
   updatedAt: DateTime!
   user: User! @relation(name: "TaskOnUser")
+  description: String!
 }

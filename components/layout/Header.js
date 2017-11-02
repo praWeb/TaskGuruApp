@@ -15,7 +15,7 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
   banner: {
-    paddingTop: 30,
+    paddingTop: 15,
     paddingBottom: 15,
     backgroundColor: '#81c04d',
     flexDirection: 'row'
