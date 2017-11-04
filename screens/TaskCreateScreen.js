@@ -24,7 +24,6 @@ class TaskCreateScreen extends Component {
   }
 
   handleSubmit () {
-    console.log(this.state)
     const { navigate } = this.props.navigation
     this.props.mutate({
       variables: {
@@ -34,7 +33,9 @@ class TaskCreateScreen extends Component {
         statusId: this.state.statusId
       }
     }).then((response) => {
-      navigate('TaskLists')
+      navigate('TaskDetail', {
+        taskId: response.data.createTask.id
+      })
     })
   }
 
