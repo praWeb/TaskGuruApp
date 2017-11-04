@@ -2,32 +2,31 @@
 import React, { Component } from 'react'
 
 // React native
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Button } from 'react-native'
 
 // App Status Colours
 import * as colors from './../constants/statusColors.json'
 
-// Static data
-import tasks from './../static/tasks.json'
-
 export default class TaskList extends Component {
   renderTask (task) {
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.taskView}>
         <View style={{ borderLeftWidth: 5, borderLeftColor: colors[task.status], borderStyle: 'solid', flex: 1 }}>
-          <Text style={styles.taskTitle}> { task.taskDetails.title } </Text>
-          <View style={styles.statusContainer}>
+          <Button style={styles.taskTitle} onPress={() => navigate('TaskDetail', {taskId: task.id})} title={task.title} />
+          {/* <View style={styles.statusContainer}>
             <Text style={[styles.taskStatus, {backgroundColor: task.taskDetails.taskType.bgColor}]}>
-              { task.taskDetails.taskType.title }
+              { task.taskType.title }
             </Text>
-          </View>
-          <Text style={styles.taskContent}> { task.taskDetails.content } </Text>
+          </View> */}
+          <Text style={styles.taskContent}> { task.description } </Text>
         </View>
       </View>
     )
   }
 
   render () {
+    const tasks = this.props.tasks
     return (
       <View>
         <FlatList
