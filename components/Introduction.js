@@ -16,7 +16,13 @@ export default class Introduction extends Component {
         </View>
         <View style={styles.introduction}>
           <Text style={styles.text}> Welcome Prasanna ! </Text>
-          <Text style={styles.text}> Lets create some tasks </Text>
+          <Text style={styles.text} onPress={() => navigate('UserRegistration')}>
+            User Registration
+          </Text>
+          <Button
+            onPress={() => navigate('TaskCreate')}
+            title='Create Tasks'
+          />
           <Button
             onPress={() => navigate('TaskLists')}
             title='View Tasks'
@@ -32,10 +38,11 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   text: {
-    fontSize: 20
+    fontSize: 20,
+    paddingBottom: 5
   },
   image: {
-    marginTop: 30
+    marginTop: 5
   },
   container: {
     alignItems: 'center',
