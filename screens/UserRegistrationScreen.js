@@ -60,7 +60,8 @@ class UserRegistrationScreen extends Component {
 
 const createUser = gql`
 mutation createUser($name: String!, $email: String!, $password: String!) {
-  createUser(name: $name, email: $email, password: $password) {
+  createUser(name: $name, authProvider: {
+    email: { email: $email, password: $password } } ) {
     id
     name
     createdAt
