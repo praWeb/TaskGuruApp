@@ -15,7 +15,7 @@ export default class Introduction extends Component {
           />
         </View>
         <View style={styles.introduction}>
-          <Text style={styles.text}> Welcome Prasanna ! </Text>
+          <Text style={styles.text}> Welcome {this.props.userName} ! </Text>
           <Text style={styles.text} onPress={() => navigate('UserRegistration')}>
             User Registration
           </Text>

@@ -2,7 +2,7 @@
 import React from 'react'
 
 // React Native
-import { Text, View, TextInput, Button } from 'react-native'
+import { Text, View, TextInput, Button, AsyncStorage } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
@@ -27,15 +27,20 @@ class LoginScreen extends React.Component {
     this.setState(Object.assign({}, this.state, newState))
   }
 
-  handleSubmit () {
+  async handleSubmit () {
     const { navigate } = this.props.navigation
-    console.log(this.props)
     this.props.mutate({
       variables: {
         email: this.state.email,
         password: this.state.password
       }
     }).then((response) => {
+      try {
+        AsyncStorage.setItem('UserToken', response.data.signinUser.token)
+        AsyncStorage.setItem('UserEmail', this.state.email)
+      } catch (error) {
+        console.log("Storing user token failed."+ error)
+      }
       navigate('Home')
     })
   }
