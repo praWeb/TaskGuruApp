@@ -10,12 +10,12 @@ export default class Introduction extends Component {
     return (
       <View>
         <View style={styles.container} >
+          <Text style={styles.text}> Welcome {this.props.userName} ! </Text>
           <Image style={styles.image}
             source={require('./../images/Slice.png')}
           />
         </View>
         <View style={styles.introduction}>
-          <Text style={styles.text}> Welcome {this.props.userName} ! </Text>
           <Text style={styles.text} onPress={() => navigate('UserRegistration')}>
             User Registration
           </Text>

@@ -27,7 +27,7 @@ export default class HomeScreen extends Component {
       this.setState({userName: username})
     } catch (error) {
       // Error retrieving data
-      console.log('Error while retreiving username' + error)
+      console.log('Error while retrieving username' + error)
     }
   }
 
