@@ -46,6 +46,8 @@ class LoginScreen extends React.Component {
   }
 
   render () {
+    const { navigate } = this.props.navigation
+
     return (
       <View>
         <View style={styles.container} >
@@ -58,6 +60,9 @@ class LoginScreen extends React.Component {
           <TextInput style={styles.heading} placeholder='Email' value={this.state.email} onChangeText={(text) => this.handleChange(text, 'email')} />
           <TextInput style={styles.heading} placeholder='Password' secureTextEntry value={this.state.password} onChangeText={(text) => this.handleChange(text, 'password')} />
           <View style={styles.buttonContainer}>
+            <View style={styles.button} >
+              <Button title='New User' onPress={() => navigate('UserRegistration')} />
+            </View>
             <View style={styles.button}>
               <Button title='Login' onPress={this.handleSubmit} />
             </View>
@@ -81,7 +86,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontWeight: '500',
     paddingBottom: 15,
-    paddingTop: 20
+    paddingTop: 10
   },
   image: {
     marginTop: 5
@@ -103,11 +108,14 @@ const styles = StyleSheet.create({
     padding: 5
   },
   buttonContainer: {
-    width: 'auto',
-    alignItems: 'center'
+    marginTop: 20,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
   button: {
-    width: 125
+    width: 125,
+    height: 40
   }
 })
 

@@ -16,9 +16,6 @@ export default class Introduction extends Component {
           />
         </View>
         <View style={styles.introduction}>
-          <Text style={styles.text} onPress={() => navigate('UserRegistration')}>
-            User Registration
-          </Text>
           <Button
             onPress={() => navigate('TaskCreate')}
             title='Create Tasks'
