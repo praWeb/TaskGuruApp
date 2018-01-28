@@ -15,15 +15,19 @@ export default class Introduction extends Component {
             source={require('./../images/Slice.png')}
           />
         </View>
-        <View style={styles.introduction}>
-          <Button
-            onPress={() => navigate('TaskCreate')}
-            title='Create Tasks'
-          />
-          <Button
-            onPress={() => navigate('TaskLists')}
-            title='View Tasks'
-          />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button} >
+            <Button
+              onPress={() => navigate('TaskCreate')}
+              title='Create Tasks'
+            />
+          </View>
+          <View style={styles.button} >
+            <Button
+              onPress={() => navigate('TaskLists')}
+              title='View Tasks'
+            />
+          </View>
         </View>
       </View>
     )
@@ -31,9 +35,6 @@ export default class Introduction extends Component {
 }
 
 const styles = StyleSheet.create({
-  introduction: {
-    marginTop: 20
-  },
   text: {
     fontSize: 20,
     paddingBottom: 5
@@ -45,5 +46,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 'auto',
     overflow: 'visible'
+  },
+  buttonContainer: {
+    marginTop: 40,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  button: {
+    width: 125,
+    height: 40
   }
 })
