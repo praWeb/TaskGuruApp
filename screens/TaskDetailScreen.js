@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // React native
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
@@ -16,7 +16,6 @@ class TaskDetailScreen extends React.Component {
   render () {
     return (
       <View>
-        <Text> Task Detail Page </Text>
         { !this.props.data.loading && this.props.data.Task &&
           <TaskDetails task={this.props.data.Task} />
         }
