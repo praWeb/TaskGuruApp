@@ -1,13 +1,15 @@
 // React
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-native'  
-
-// React Native
-import { View, Text, TextInput, Button } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+
+// React-native
+import { AsyncStorage } from 'react-native'
+
+// Internal Components
+import Registration from '../components/Registration.js'
 
 class UserRegistrationScreen extends Component {
   constructor (props) {
@@ -24,11 +26,24 @@ class UserRegistrationScreen extends Component {
   }
 
   handleSubmit () {
+    const { navigate } = this.props.navigation
     this.props.mutate({
       variables: { email: this.state.email, name: this.state.name, password: this.state.password }
     }).then((response) => {
+      // TODO integrate with notification component
       console.log(response)
+      this.storeUserDetails(response)
+      navigate('Home')
     })
+  }
+
+  async storeUserDetails (response) {
+    try {
+      AsyncStorage.setItem('UserId', response.data.createUser.id)
+      AsyncStorage.setItem('UserEmail', this.state.email)
+    } catch (error) {
+      console.log('Storing user token failed.' + error)
+    }
   }
 
   handleChange (text, field) {
@@ -39,21 +54,11 @@ class UserRegistrationScreen extends Component {
 
   render () {
     return (
-      <View>
-        <Text style={{padding: 15, alignItems: 'center'}}> Create Profile </Text>
-        <View style={{padding: 15}}>
-          <TextInput placeholder='Name' value={this.state.name} onChangeText={(text) => this.handleChange(text, 'name')} />
-        </View>
-        <View style={{padding: 15}}>
-          <TextInput placeholder='Email' keyboardType='email-address' value={this.state.email} onChangeText={(text) => this.handleChange(text, 'email')} />
-        </View>
-        <View style={{padding: 15}}>
-          <TextInput placeholder='Password' secureTextEntry value={this.state.password} onChangeText={(text) => this.handleChange(text, 'password')} />
-        </View>
-        <View style={{padding: 15}}>
-          <Button title='Register' onPress={this.handleSubmit} />
-        </View>
-      </View>
+      <Registration
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+        {...this.props}
+        {...this.state} />
     )
   }
 }
