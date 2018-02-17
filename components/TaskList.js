@@ -62,14 +62,6 @@ export default class TaskList extends Component {
             containerStyle={{ borderBottomWidth: 0 }}
           />
         </View>
-        <View>
-          <Icon type='font-awesome' name='chevron-left' iconStyle={styles.mediaImage}
-            onPress={this.handlePrev}
-          />
-          <Icon type='font-awesome' name='chevron-right' iconStyle={styles.mediaImage}
-            onPress={this.handleNext}
-          />
-        </View>
       </View>
     )
   }
