@@ -15,6 +15,7 @@ import TasksListScreen from './screens/TaskListScreen'
 import TaskCreateScreen from './screens/TaskCreateScreen'
 import UserRegistrationScreen from './screens/UserRegistrationScreen'
 import TaskDetailScreen from './screens/TaskDetailScreen'
+import LoginScreen from './screens/LoginScreen'
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: 'https://api.graph.cool/simple/v1/cj9elu5jl59n301406gzmd5ll' }),
@@ -26,7 +27,10 @@ const HomeNavigation = StackNavigator({
   TaskLists: { screen: TasksListScreen },
   TaskCreate: { screen: TaskCreateScreen },
   UserRegistration: { screen: UserRegistrationScreen },
-  TaskDetail: { screen: TaskDetailScreen }
+  TaskDetail: { screen: TaskDetailScreen },
+  Login: { screen: LoginScreen }
+}, {
+  initialRouteName: 'Login'
 })
 
 export default class App extends Component {

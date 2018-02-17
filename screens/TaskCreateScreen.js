@@ -12,6 +12,7 @@ class TaskCreateScreen extends Component {
   constructor (props) {
     super(props)
 
+    // @TODO: Integrate with status dropdown
     this.state = {
       title: '',
       description: '',
@@ -21,6 +22,14 @@ class TaskCreateScreen extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.resetState = this.resetState.bind(this)
+  }
+
+  resetState () {
+    this.setState({
+      title: '',
+      description: ''
+    })
   }
 
   handleSubmit () {
@@ -33,9 +42,14 @@ class TaskCreateScreen extends Component {
         statusId: this.state.statusId
       }
     }).then((response) => {
-      navigate('TaskDetail', {
-        taskId: response.data.createTask.id
-      })
+      if (response.data.createTask.id) {
+        this.resetState()
+        navigate('TaskDetail', {
+          taskId: response.data.createTask.id
+        })
+      } else {
+        // Handle errors
+      }
     })
   }
 
@@ -50,10 +64,10 @@ class TaskCreateScreen extends Component {
       <View>
         <Text style={{padding: 15, alignItems: 'center'}}> Create Task </Text>
         <View style={{padding: 15}}>
-          <TextInput placeholder='title' value={this.state.title} onChangeText={(text) => this.handleChange(text, 'title')} />
+          <TextInput placeholder='title' autoCapitalize='sentences' value={this.state.title} onChangeText={(text) => this.handleChange(text, 'title')} />
         </View>
         <View style={{padding: 15}}>
-          <TextInput placeholder='description' value={this.state.description} onChangeText={(text) => this.handleChange(text, 'description')} />
+          <TextInput placeholder='description' multiline autoCapitalize='sentences' value={this.state.description} onChangeText={(text) => this.handleChange(text, 'description')} />
         </View>
         <View style={{padding: 15}}>
           <Button title='Create Task' onPress={this.handleSubmit} />
