@@ -3,11 +3,35 @@ import React, { Component } from 'react'
 
 // React native
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
+import { Icon } from 'react-native-elements'
 
 // App Status Colours
 import * as colors from './../constants/statusColors.json'
 
 export default class TaskList extends Component {
+  constructor () {
+    super()
+    this.state = {
+      viewableItems: []
+    }
+    this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
+    this.handleNext = this.handleNext.bind(this)
+    this.handlePrev = this.handlePrev.bind(this)
+  }
+
+  // REQUIRED for ReactNativePagination to work correctly
+  onViewableItemsChanged ({ viewableItems, changed }) {
+    this.setState({viewableItems})
+  }
+
+  handleNext () {
+
+  }
+
+  handlePrev () {
+
+  }
+
   renderTask (task) {
     const { navigate } = this.props.navigation
     return (
@@ -17,11 +41,6 @@ export default class TaskList extends Component {
             <Text style={styles.taskTitle}>
               {task.title}
             </Text>
-            {/* <View style={styles.statusContainer}>
-              <Text style={[styles.taskStatus, {backgroundColor: task.taskDetails.taskType.bgColor}]}>
-                { task.taskType.title }
-              </Text>
-            </View> */}
             <Text style={styles.taskContent}> { task.description } </Text>
           </View>
         </TouchableOpacity>
@@ -43,6 +62,14 @@ export default class TaskList extends Component {
             containerStyle={{ borderBottomWidth: 0 }}
           />
         </View>
+        <View>
+          <Icon type='font-awesome' name='chevron-left' iconStyle={styles.mediaImage}
+            onPress={this.handlePrev}
+          />
+          <Icon type='font-awesome' name='chevron-right' iconStyle={styles.mediaImage}
+            onPress={this.handleNext}
+          />
+        </View>
       </View>
     )
   }
@@ -62,12 +89,6 @@ const styles = StyleSheet.create({
   },
   taskContent: {
     fontSize: 16
-  },
-  statusContainer: {
-    marginVertical: 5,
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    flexDirection: 'row'
   },
   taskStatus: {
     padding: 3,

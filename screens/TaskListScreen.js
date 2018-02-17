@@ -12,8 +12,20 @@ import gql from 'graphql-tag'
 import Layout from './../components/Layout'
 import TaskList from './../components/TaskList'
 
+// Pagination Constants
+const TASKS_PER_REQUEST = 5
+
 class TaskListScreen extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      offset: 5,
+      limit: TASKS_PER_REQUEST
+    }
+  }
   render () {
+    console.log("**********")
+    console.log(this.props)
     return (
       <Layout>
         <View style={styles.taskContainer}>
@@ -30,9 +42,9 @@ const styles = StyleSheet.create({
   }
 })
 
-const task = gql`
-  query {
-    allTasks (first: 5){
+const taskQuery = gql`
+  query getTasks{
+    allTasks(first: 5){
       id
       title
       description
@@ -50,4 +62,14 @@ const task = gql`
     }
   }
 `
-export default graphql(task)(TaskListScreen)
+export default graphql(taskQuery, {
+  options: (props) => {
+    console.log(props)
+    return {
+      variables: {
+        offset: props.navigation.state.offset || 0,
+        limit: props.navigation.state.limit || 10
+      }
+    }
+  }
+})(TaskListScreen)
