@@ -2,13 +2,15 @@
 import React from 'react'
 
 // React Native
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, Picker, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 // Moment
 import moment from 'moment'
 
 export default class TaskDetails extends React.Component {
+  state = {status: ''}
+  updateStatus = (status) => { this.setState({status: status}) }
   render () {
     const task = this.props.task
     return (
@@ -16,8 +18,14 @@ export default class TaskDetails extends React.Component {
         <View >
           <View style={styles.media}>
             <Text style={styles.taskId}> #{task.id} </Text>
-            <Text style={styles.label}> { task.status.title } </Text>
+            <Picker selectedValue={this.state.status}
+              onValueChange= {this.updateStatus} style={{ height: 200, width: 120}}>
+              <Picker.Item label ="Created" value="Created" />
+              <Picker.Item label ="InProgress" value="InProgress" />
+              <Picker.Item label ="Completed" value="Completed" />
+            </Picker>
           </View>
+          <Text style={styles.title}> {this.state.status} </Text>
           <Text style={styles.title}> { task.title } </Text>
           <Text style={styles.description}> { task.description } </Text>
           <View style={styles.media}>
