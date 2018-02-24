@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 // Graphql
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
 // React-native
@@ -30,26 +30,28 @@ class UserRegistrationScreen extends Component {
 
   handleSubmit () {
     const { navigate } = this.props.navigation
-    this.props.mutate({
+    this.props.createUser({
       variables: { email: this.state.email, name: this.state.name, password: this.state.password }
     }).then((response) => {
-      // TODO integrate with notification component
-      console.log(response)
       if (response.data) {
-        this.storeUserDetails(response)
-        navigate('Home')
+        this.props.signinUser({
+          variables: {
+            email: this.state.email,
+            password: this.state.password
+          }
+        }).then((response) => {
+          this.storeUserDetails(response)
+          navigate('Home')
+        })
       }
     }).catch((error) => {
-      console.log('error occurred.')
-      console.log(error)
       this.setState({error: error})
     })
   }
 
   async storeUserDetails (response) {
-    this.setState(this.state.response, response)
     try {
-      AsyncStorage.setItem('UserId', response.data.createUser.id)
+      AsyncStorage.setItem('UserToken', response.data.signinUser.token)
       AsyncStorage.setItem('UserEmail', this.state.email)
     } catch (error) {
       console.log('Storing user token failed.' + error)
@@ -63,6 +65,7 @@ class UserRegistrationScreen extends Component {
   }
 
   render () {
+    console.log(this.props)
     return (
       <View>
         <Notification response={this.state.response} error={this.state.error} />
@@ -87,4 +90,19 @@ mutation createUser($name: String!, $email: String!, $password: String!) {
 }
 `
 
-export default graphql(createUser)(UserRegistrationScreen)
+const signinUser = gql`
+  mutation signinUser($email: String!, $password: String!) {
+    signinUser(email: { email: $email, password: $password }) {
+      token
+    }
+  }
+`
+
+export default compose(
+  graphql(createUser, {
+    name: 'createUser'
+  }),
+  graphql(signinUser, {
+    name: 'signinUser'
+  })
+)(UserRegistrationScreen)
