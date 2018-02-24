@@ -6,10 +6,11 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 // React-native
-import { AsyncStorage } from 'react-native'
+import { View, AsyncStorage } from 'react-native'
 
 // Internal Components
 import Registration from '../components/Registration.js'
+import Notification from '../objects/Notification.js'
 
 class UserRegistrationScreen extends Component {
   constructor (props) {
@@ -18,7 +19,9 @@ class UserRegistrationScreen extends Component {
     this.state = {
       email: '',
       name: '',
-      password: ''
+      password: '',
+      response: '',
+      error: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -32,12 +35,19 @@ class UserRegistrationScreen extends Component {
     }).then((response) => {
       // TODO integrate with notification component
       console.log(response)
-      this.storeUserDetails(response)
-      navigate('Home')
+      if (response.data) {
+        this.storeUserDetails(response)
+        navigate('Home')
+      }
+    }).catch((error) => {
+      console.log('error occurred.')
+      console.log(error)
+      this.setState({error: error})
     })
   }
 
   async storeUserDetails (response) {
+    this.setState(this.state.response, response)
     try {
       AsyncStorage.setItem('UserId', response.data.createUser.id)
       AsyncStorage.setItem('UserEmail', this.state.email)
@@ -54,11 +64,14 @@ class UserRegistrationScreen extends Component {
 
   render () {
     return (
-      <Registration
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        {...this.props}
-        {...this.state} />
+      <View>
+        <Notification response={this.state.response} error={this.state.error} />
+        <Registration
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          {...this.props}
+          {...this.state} />
+      </View>
     )
   }
 }

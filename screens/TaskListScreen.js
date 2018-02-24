@@ -24,8 +24,6 @@ class TaskListScreen extends Component {
     }
   }
   render () {
-    console.log("**********")
-    console.log(this.props)
     return (
       <Layout>
         <View style={styles.taskContainer}>
@@ -64,7 +62,6 @@ const taskQuery = gql`
 `
 export default graphql(taskQuery, {
   options: (props) => {
-    console.log(props)
     return {
       variables: {
         offset: props.navigation.state.offset || 0,
