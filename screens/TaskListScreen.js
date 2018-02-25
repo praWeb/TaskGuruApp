@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 // React native
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, AsyncStorage } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
@@ -20,16 +20,33 @@ class TaskListScreen extends Component {
     super(props)
     this.state = {
       offset: 5,
-      limit: TASKS_PER_REQUEST
+      limit: TASKS_PER_REQUEST,
+      userId: ''
     }
   }
+
+  componentWillMount () {
+    this.getUserId()
+  }
+
+  async getUserId () {
+    try {
+      let userId = await AsyncStorage.getItem('UserId')
+      this.setState({ userId: userId })
+    } catch (error) {
+      console.log('Error in retrieving UserId' + error)
+    }
+  }
+
   render () {
-    console.log("**********")
-    console.log(this.props)
     return (
       <Layout>
         <View style={styles.taskContainer}>
-          <TaskList tasks={this.props.data.allTasks} navigation={this.props.navigation} />
+          { !this.props.data.loading && this.props.data.User &&
+            <TaskList
+              tasks={this.props.data.User.tasks}
+              navigation={this.props.navigation} />
+          }
         </View>
       </Layout>
     )
@@ -43,32 +60,30 @@ const styles = StyleSheet.create({
 })
 
 const taskQuery = gql`
-  query getTasks{
-    allTasks(first: 5){
-      id
-      title
-      description
-      createdAt
-      updatedAt
-      user {
-        email
-        name
-      }
-      status {
+  query getTasks($id: ID!){
+    User(id: $id){
+      email
+      name
+      tasks {
         id
         title
-        percentCompleted
+        description
+        createdAt
+        updatedAt
+        status {
+          id
+          title
+          percentCompleted
+        }
       }
     }
   }
 `
 export default graphql(taskQuery, {
   options: (props) => {
-    console.log(props)
     return {
       variables: {
-        offset: props.navigation.state.offset || 0,
-        limit: props.navigation.state.limit || 10
+        id: props.navigation.state.params.userId
       }
     }
   }

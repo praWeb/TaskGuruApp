@@ -24,7 +24,9 @@ export default class Introduction extends Component {
           </View>
           <View style={styles.button} >
             <Button
-              onPress={() => navigate('TaskLists')}
+              onPress={() => navigate('TaskLists', {
+                userId: this.props.data.User.id
+              })}
               title='View Tasks'
             />
           </View>

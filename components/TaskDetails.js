@@ -73,8 +73,5 @@ const styles = StyleSheet.create({
   },
   mediaText: {
     fontWeight: '300'
-  },
-  mediaImage: {
-
   }
 })

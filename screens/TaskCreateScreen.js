@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 
 // React Native
-import { View, Text, TextInput, Button } from 'react-native'
-import { BrowserRouter as Router } from 'react-router-native'
+import { View, Text, TextInput, Button, AsyncStorage } from 'react-native'
+
 // Graphql
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -16,13 +16,26 @@ class TaskCreateScreen extends Component {
     this.state = {
       title: '',
       description: '',
-      userId: 'cj9j01hq708vy0156jr034loe',
+      userId: '',
       statusId: 'cj9izircjn6ti0104d7pluu18'
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.resetState = this.resetState.bind(this)
+  }
+
+  componentDidMount () {
+    this.getUserId()
+  }
+
+  async getUserId () {
+    try {
+      let userId = await AsyncStorage.getItem('UserId')
+      this.setState({ userId: userId })
+    } catch (error) {
+      console.log('Error in retrieving UserId' + error)
+    }
   }
 
   resetState () {
@@ -34,6 +47,7 @@ class TaskCreateScreen extends Component {
 
   handleSubmit () {
     const { navigate } = this.props.navigation
+
     this.props.mutate({
       variables: {
         title: this.state.title,
