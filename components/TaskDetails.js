@@ -9,7 +9,10 @@ import { Icon } from 'react-native-elements'
 import moment from 'moment'
 
 export default class TaskDetails extends React.Component {
-  state = {status: ''}
+  constructor () {
+    super()
+    this.state = {status: ''}
+  }
   updateStatus = (status) => { this.setState({status: status}) }
   render () {
     const task = this.props.task
@@ -18,14 +21,8 @@ export default class TaskDetails extends React.Component {
         <View >
           <View style={styles.media}>
             <Text style={styles.taskId}> #{task.id} </Text>
-            <Picker selectedValue={this.state.status}
-              onValueChange= {this.updateStatus} style={{ height: 200, width: 120}}>
-              <Picker.Item label ="Created" value="Created" />
-              <Picker.Item label ="InProgress" value="InProgress" />
-              <Picker.Item label ="Completed" value="Completed" />
-            </Picker>
+            <Text style={styles.label}> {this.state.status} </Text>
           </View>
-          <Text style={styles.title}> {this.state.status} </Text>
           <Text style={styles.title}> { task.title } </Text>
           <Text style={styles.description}> { task.description } </Text>
           <View style={styles.media}>
@@ -37,6 +34,15 @@ export default class TaskDetails extends React.Component {
               <Icon type='foundation' name='clock' iconStyle={styles.mediaImage} />
               <Text style={styles.mediaText}> { moment(task.createdAt).format('YYYY-MM-DD') } </Text>
             </View>
+          </View>
+          <View style={styles.media}>
+            <Text style={styles.title}> Update Task Status </Text>
+            <Picker selectedValue={this.state.status} mode="dropdown"
+              onValueChange= {this.updateStatus} style={styles.status}>
+              <Picker.Item label ="Created" value="Created" />
+              <Picker.Item label ="InProgress" value="InProgress" />
+              <Picker.Item label ="Completed" value="Completed" />
+            </Picker>
           </View>
         </View>
       </View>
@@ -84,5 +90,9 @@ const styles = StyleSheet.create({
   },
   mediaImage: {
 
+  },
+  status: {
+    height: 10, 
+    width: 100
   }
 })
