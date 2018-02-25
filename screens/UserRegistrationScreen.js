@@ -41,7 +41,7 @@ class UserRegistrationScreen extends Component {
           }
         }).then((response) => {
           this.storeUserDetails(response)
-          navigate('Home')
+          navigate('Home', {email: this.state.email})
         })
       }
     }).catch((error) => {
@@ -65,7 +65,6 @@ class UserRegistrationScreen extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <View>
         <Notification response={this.state.response} error={this.state.error} />

@@ -26,7 +26,7 @@ class LoginScreen extends React.Component {
     newState[field] = text
     this.setState(Object.assign({}, this.state, newState))
   }
-
+ 
   async handleSubmit () {
     const { navigate } = this.props.navigation
     this.props.mutate({
@@ -38,10 +38,13 @@ class LoginScreen extends React.Component {
       try {
         AsyncStorage.setItem('UserToken', response.data.signinUser.token)
         AsyncStorage.setItem('UserEmail', this.state.email)
+        AsyncStorage.setItem('UserId', '')
       } catch (error) {
         console.log('Storing user token failed.' + error)
       }
-      navigate('Home')
+      navigate('Home', {
+        email: this.state.email
+      })
     })
   }
 
