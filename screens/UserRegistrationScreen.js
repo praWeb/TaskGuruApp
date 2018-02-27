@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 // Graphql
 import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
+import { createUser, signinUser } from '../server/queries.js'
 
 // React-native
 import { View, AsyncStorage } from 'react-native'
@@ -77,25 +77,6 @@ class UserRegistrationScreen extends Component {
     )
   }
 }
-
-const createUser = gql`
-mutation createUser($name: String!, $email: String!, $password: String!) {
-  createUser(name: $name, authProvider: {
-    email: { email: $email, password: $password } } ) {
-    id
-    name
-    createdAt
-  }
-}
-`
-
-const signinUser = gql`
-  mutation signinUser($email: String!, $password: String!) {
-    signinUser(email: { email: $email, password: $password }) {
-      token
-    }
-  }
-`
 
 export default compose(
   graphql(createUser, {
