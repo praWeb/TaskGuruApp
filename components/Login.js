@@ -2,7 +2,7 @@
 import React from 'react'
 
 // React Native
-import { Text, View, TextInput, Button, StyleSheet, Image } from 'react-native'
+import { Text, View, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native'
 
 export default class Login extends React.Component {
   loggedIn () {
@@ -45,15 +45,27 @@ export default class Login extends React.Component {
     )
   }
 
+  navigateFurther () {
+    const { navigate } = this.props.navigation
+
+    if (this.props.isLoggedIn) {
+      navigate('Home', {
+        email: this.props.email
+      })
+    }
+  }
+
   render () {
     console.log(this.props)
     return (
       <View>
         <View style={styles.container} >
           <Text style={styles.text}> Welcome to TASK GURU!</Text>
-          <Image style={styles.image}
-            source={require('./../images/Slice.png')}
-          />
+          <TouchableOpacity onPress={() => this.navigateFurther()}>
+            <Image style={styles.image}
+              source={require('./../images/Slice.png')}
+            />
+          </TouchableOpacity>
         </View>
         {
           !this.props.isLoggedIn && this.loggedIn()

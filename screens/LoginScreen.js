@@ -14,7 +14,7 @@ import Login from './../components/Login'
 class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
-    console.log("in the conrstorct...")
+
     this.state = {
       email: '',
       password: '',
@@ -27,7 +27,6 @@ class LoginScreen extends React.Component {
   }
 
   componentDidMount () {
-    console.log("will munt in the user...")
     this.verifyUser()
   }
 
@@ -70,9 +69,15 @@ class LoginScreen extends React.Component {
 
   logIn (email) {
     if (email) {
-      this.setState({ isLoggedIn: true })
+      this.setState({
+        isLoggedIn: true,
+        email: email
+      })
     } else {
-      this.setState({ isLoggedIn: false })
+      this.setState({
+        isLoggedIn: false,
+        email: ''
+      })
     }
   }
 

@@ -22,7 +22,7 @@ class HomeScreen extends Component {
 
   componentWillReceiveProps (props) {
     // See if we have received the data
-    if (props.data) {
+    if (props.data.User) {
       this.storeUserId(props)
     }
   }
