@@ -2,11 +2,14 @@
 import React, { Component } from 'react'
 
 // React Native
-import { View, Text, TextInput, Button, AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
 import { createTask } from '../server/queries.js'
+
+// Components
+import CreateTask from './../components/CreateTask'
 
 class TaskCreateScreen extends Component {
   constructor (props) {
@@ -75,18 +78,12 @@ class TaskCreateScreen extends Component {
 
   render () {
     return (
-      <View>
-        <Text style={{padding: 15, alignItems: 'center'}}> Create Task </Text>
-        <View style={{padding: 15}}>
-          <TextInput placeholder='title' autoCapitalize='sentences' value={this.state.title} onChangeText={(text) => this.handleChange(text, 'title')} />
-        </View>
-        <View style={{padding: 15}}>
-          <TextInput placeholder='description' multiline autoCapitalize='sentences' value={this.state.description} onChangeText={(text) => this.handleChange(text, 'description')} />
-        </View>
-        <View style={{padding: 15}}>
-          <Button title='Create Task' onPress={this.handleSubmit} />
-        </View>
-      </View>
+      <CreateTask
+        {...this.props}
+        {...this.state}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+      />
     )
   }
 }

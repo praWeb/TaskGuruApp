@@ -1,6 +1,5 @@
 // React
 import React from 'react'
-import PropTypes from 'prop-types'
 
 // React native
 import { View } from 'react-native'
@@ -22,13 +21,6 @@ class TaskDetailScreen extends React.Component {
       </View>
     )
   }
-}
-TaskDetailScreen.propTypes = {
-  data: PropTypes.shape({
-    loading: PropTypes.bool,
-    error: PropTypes.object,
-    Task: PropTypes.object
-  }).isRequired
 }
 
 export default graphql(TaskDetailsQuery, {

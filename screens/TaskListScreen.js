@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
   }
 })
 
-
 export default graphql(TaskListQuery, {
   options: (props) => {
     return {
