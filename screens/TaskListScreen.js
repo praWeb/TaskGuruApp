@@ -6,7 +6,7 @@ import { View, StyleSheet, AsyncStorage } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { TaskListQuery } from '../server/queries.js'
 
 // Components
 import Layout from './../components/Layout'
@@ -59,27 +59,8 @@ const styles = StyleSheet.create({
   }
 })
 
-const taskQuery = gql`
-  query getTasks($id: ID!){
-    User(id: $id){
-      email
-      name
-      tasks {
-        id
-        title
-        description
-        createdAt
-        updatedAt
-        status {
-          id
-          title
-          percentCompleted
-        }
-      }
-    }
-  }
-`
-export default graphql(taskQuery, {
+
+export default graphql(TaskListQuery, {
   options: (props) => {
     return {
       variables: {

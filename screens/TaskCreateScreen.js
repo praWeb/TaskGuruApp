@@ -6,7 +6,7 @@ import { View, Text, TextInput, Button, AsyncStorage } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { createTask } from '../server/queries.js'
 
 class TaskCreateScreen extends Component {
   constructor (props) {
@@ -91,21 +91,4 @@ class TaskCreateScreen extends Component {
   }
 }
 
-const createTask = gql`
-mutation createTask($title: String!, $description: String!, $userId: ID!, $statusId: ID!) {
-  createTask(title: $title, description: $description, userId: $userId, statusId: $statusId) {
-    id
-    user {
-      name
-      email
-    }
-    status {
-      title
-    }
-    title
-    description
-    createdAt
-  }
-}
-`
 export default graphql(createTask)(TaskCreateScreen)
