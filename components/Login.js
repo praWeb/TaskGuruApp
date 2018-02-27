@@ -5,9 +5,48 @@ import React from 'react'
 import { Text, View, TextInput, Button, StyleSheet, Image } from 'react-native'
 
 export default class Login extends React.Component {
-  render () {
+  loggedIn () {
     const { navigate } = this.props.navigation
-    
+
+    return (
+      <View style={styles.loginContainer}>
+        <TextInput
+          style={styles.heading}
+          placeholder='Email'
+          value={this.props.email}
+          onChangeText={(text) => this.props.handleChange(text, 'email')}
+        />
+        <TextInput
+          style={styles.heading}
+          placeholder='Password'
+          secureTextEntry
+          value={this.props.password}
+          onChangeText={(text) => this.props.handleChange(text, 'password')}
+        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button} >
+            <Button title='New User' onPress={() => navigate('UserRegistration')} />
+          </View>
+          <View style={styles.button}>
+            <Button title='Login' onPress={this.props.handleSubmit} />
+          </View>
+        </View>
+      </View>
+    )
+  }
+
+  logOut () {
+    return (
+      <View style={styles.buttonContainer}>
+        <View style={styles.button} >
+          <Button title='Logout' onPress={this.props.logOut} />
+        </View>
+      </View>
+    )
+  }
+
+  render () {
+    console.log(this.props)
     return (
       <View>
         <View style={styles.container} >
@@ -16,29 +55,12 @@ export default class Login extends React.Component {
             source={require('./../images/Slice.png')}
           />
         </View>
-        <View style={styles.loginContainer}>
-          <TextInput
-            style={styles.heading}
-            placeholder='Email'
-            value={this.props.email}
-            onChangeText={(text) => this.props.handleChange(text, 'email')}
-          />
-          <TextInput
-            style={styles.heading}
-            placeholder='Password'
-            secureTextEntry
-            value={this.props.password}
-            onChangeText={(text) => this.props.handleChange(text, 'password')}
-          />
-          <View style={styles.buttonContainer}>
-            <View style={styles.button} >
-              <Button title='New User' onPress={() => navigate('UserRegistration')} />
-            </View>
-            <View style={styles.button}>
-              <Button title='Login' onPress={this.props.handleSubmit} />
-            </View>
-          </View>
-        </View>
+        {
+          !this.props.isLoggedIn && this.loggedIn()
+        }
+        {
+          !!this.props.isLoggedIn && this.logOut()
+        }
       </View>
     )
   }
