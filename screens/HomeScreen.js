@@ -1,41 +1,60 @@
 // React
 import React, { Component } from 'react'
 
-// React Native
+// Graphql
+import { graphql } from 'react-apollo'
+import { getUserDetails } from '../server/queries.js'
+
+// React-native
 import { AsyncStorage } from 'react-native'
 
 // Components
 import Layout from './../components/Layout'
 import Introduction from './../components/Introduction'
 
-export default class HomeScreen extends Component {
-  constructor () {
-    super()
+class HomeScreen extends Component {
+  constructor (props) {
+    super(props)
     this.state = {
       userName: ''
     }
-    this.getUserName = this.getUserName.bind(this)
   }
 
-  componentDidMount () {
-    this.getUserName()
+  componentWillReceiveProps (props) {
+    // See if we have received the data
+    if (props.data.User) {
+      this.storeUserId(props)
+    }
   }
 
-  async getUserName () {
+  async storeUserId (props) {
     try {
-      const username = await AsyncStorage.getItem('UserEmail')
-      this.setState({userName: username})
+       // Store UserId details
+      await AsyncStorage.setItem('UserId', props.data.User.id)
     } catch (error) {
-      // Error retrieving data
-      console.log('Error while retrieving username' + error)
+      console.log('Error in storing UserId' + error)
     }
   }
 
   render () {
+    const data = this.props.data
+
     return (
       <Layout>
-        <Introduction {...this.props} userName={this.state.userName} />
+        { !data.loading && data.User &&
+          <Introduction {...this.props} userName={data.User.name} />
+        }
       </Layout>
     )
   }
 }
+
+export default graphql(getUserDetails, {
+  options: (props) => {
+    return {
+      variables: {
+        email: props.navigation.state.params.email
+      }
+    }
+  }
+})(HomeScreen)

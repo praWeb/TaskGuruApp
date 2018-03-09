@@ -2,11 +2,14 @@
 import React from 'react'
 
 // React Native
-import { Text, View, TextInput, Button, AsyncStorage, StyleSheet, Image } from 'react-native'
+import { AsyncStorage } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { signinUser } from '../server/queries.js'
+
+// Components
+import Login from './../components/Login'
 
 class LoginScreen extends React.Component {
   constructor (props) {
@@ -14,11 +17,26 @@ class LoginScreen extends React.Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      isLoggedIn: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.logOut = this.logOut.bind(this)
+  }
+
+  componentDidMount () {
+    this.verifyUser()
+  }
+
+  async verifyUser () {
+    try {
+      let email = await AsyncStorage.getItem('UserEmail')
+      this.logIn(email)
+    } catch (error) {
+      console.log('Error in retrieving user email details' + error)
+    }
   }
 
   handleChange (text, field) {
@@ -38,85 +56,61 @@ class LoginScreen extends React.Component {
       try {
         AsyncStorage.setItem('UserToken', response.data.signinUser.token)
         AsyncStorage.setItem('UserEmail', this.state.email)
+        AsyncStorage.setItem('UserId', '')
+        this.logIn(this.state.email)
       } catch (error) {
-        console.log('Storing user token failed.'+ error)
+        console.log('Storing user token failed.' + error)
       }
-      navigate('Home')
+      navigate('Home', {
+        email: this.state.email
+      })
+    })
+  }
+
+  logIn (email) {
+    if (email) {
+      this.setState({
+        isLoggedIn: true,
+        email: email
+      })
+    } else {
+      this.setState({
+        isLoggedIn: false,
+        email: ''
+      })
+    }
+  }
+
+  logOut () {
+    try {
+      AsyncStorage.setItem('UserToken', '')
+      AsyncStorage.setItem('UserEmail', '')
+      AsyncStorage.setItem('UserId', '')
+      this.resetState()
+    } catch (error) {
+      console.log('Error while loggingout.' + error)
+    }
+  }
+
+  resetState () {
+    this.setState({
+      email: '',
+      password: '',
+      isLoggedIn: false
     })
   }
 
   render () {
-    const { navigate } = this.props.navigation
-
     return (
-      <View>
-        <View style={styles.container} >
-          <Text style={styles.text}> Welcome to TASK GURU!</Text>
-          <Image style={styles.image}
-            source={require('./../images/Slice.png')}
-          />
-        </View>
-        <View style={styles.loginContainer}>
-          <TextInput style={styles.heading} placeholder='Email' value={this.state.email} onChangeText={(text) => this.handleChange(text, 'email')} />
-          <TextInput style={styles.heading} placeholder='Password' secureTextEntry value={this.state.password} onChangeText={(text) => this.handleChange(text, 'password')} />
-          <View style={styles.buttonContainer}>
-            <View style={styles.button} >
-              <Button title='New User' onPress={() => navigate('UserRegistration')} />
-            </View>
-            <View style={styles.button}>
-              <Button title='Login' onPress={this.handleSubmit} />
-            </View>
-          </View>
-        </View>
-      </View>
+      <Login
+        {...this.props}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+        logOut={this.logOut}
+        {...this.state}
+      />
     )
   }
 }
-
-const signinUser = gql`
-  mutation signinUser($email: String!, $password: String!) {
-    signinUser(email: { email: $email, password: $password }) {
-      token
-    }
-  }
-`
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    fontStyle: 'italic',
-    fontWeight: '500',
-    paddingBottom: 15,
-    paddingTop: 10
-  },
-  image: {
-    marginTop: 5
-  },
-  container: {
-    alignItems: 'center',
-    height: 'auto',
-    overflow: 'visible'
-  },
-  loginContainer: {
-    marginTop: 15,
-    width: 'auto'
-  },
-  heading: {
-    fontSize: 15,
-    fontWeight: '700',
-    margin: 15,
-    width: 'auto',
-    padding: 5
-  },
-  buttonContainer: {
-    marginTop: 20,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  button: {
-    width: 125,
-    height: 40
-  }
-})
 
 export default graphql(signinUser)(LoginScreen)
