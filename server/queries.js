@@ -2,14 +2,14 @@ import gql from 'graphql-tag'
 
 // Create User
 export const createUser = gql`
-mutation createUser($name: String!, $email: String!, $password: String!) {
-  createUser(name: $name, authProvider: {
-    email: { email: $email, password: $password } } ) {
-    id
-    name
-    createdAt
+  mutation createUser($name: String!, $email: String!, $password: String!) {
+    createUser(name: $name, authProvider: {
+      email: { email: $email, password: $password } } ) {
+      id
+      name
+      createdAt
+    }
   }
-}
 `
 
 // Query to get the user details
@@ -35,18 +35,19 @@ export const signinUser = gql`
 export const createTask = gql`
   mutation createTask($title: String!, $description: String!, $userId: ID!, $statusId: ID!) {
     createTask(title: $title, description: $description, userId: $userId, statusId: $statusId) {
-      id
-      user {
-        name
-        email
-      }
-      status {
+        id
+        user {
+          name
+          email
+        }
+        status {
+          id
+          title
+        }
         title
+        description
+        createdAt
       }
-      title
-      description
-      createdAt
-    }
   }
 `
 
@@ -69,6 +70,11 @@ export const TaskDetailsQuery = gql`
         percentCompleted
       }
     }
+    allStatuses{
+      id
+      title
+      percentCompleted
+    }
   }
 `
 
@@ -90,6 +96,27 @@ export const TaskListQuery = gql`
           percentCompleted
         }
       }
+    }
+  }
+`
+
+// Update Status
+
+export const UpdateStatus = gql`
+  mutation updateStatusForTask($taskID: ID!, $statusID: ID!){
+    updateTask(id: $taskID, statusId: $statusID){
+      id
+      user {
+        name
+        email
+      }
+      status {
+        id
+        title
+      }
+      title
+      description
+      createdAt
     }
   }
 `
