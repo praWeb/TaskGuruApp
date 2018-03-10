@@ -2,7 +2,7 @@
 import React from 'react'
 
 // React Native
-import { Text, View, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, TextInput, Button, StyleSheet } from 'react-native'
 
 export default class Login extends React.Component {
   loggedIn () {
@@ -56,17 +56,8 @@ export default class Login extends React.Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <View>
-        <View style={styles.container} >
-          <Text style={styles.text}> Welcome to TASK GURU!</Text>
-          <TouchableOpacity onPress={() => this.navigateFurther()}>
-            <Image style={styles.image}
-              source={require('./../images/Slice.png')}
-            />
-          </TouchableOpacity>
-        </View>
         {
           !this.props.isLoggedIn && this.loggedIn()
         }
@@ -79,23 +70,8 @@ export default class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    fontStyle: 'italic',
-    fontWeight: '500',
-    paddingBottom: 15,
-    paddingTop: 10
-  },
-  image: {
-    marginTop: 5
-  },
-  container: {
-    alignItems: 'center',
-    height: 'auto',
-    overflow: 'visible'
-  },
   loginContainer: {
-    marginTop: 15,
+    marginTop: 5,
     width: 'auto'
   },
   heading: {

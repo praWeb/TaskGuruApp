@@ -2,7 +2,7 @@
 import React from 'react'
 
 // React Native
-import { AsyncStorage } from 'react-native'
+import { StyleSheet, View, AsyncStorage, Image, TouchableOpacity, Text } from 'react-native'
 
 // Graphql
 import { graphql } from 'react-apollo'
@@ -10,6 +10,7 @@ import { signinUser } from '../server/queries.js'
 
 // Components
 import Login from './../components/Login'
+import Notification from './../objects/Notification'
 
 class LoginScreen extends React.Component {
   constructor (props) {
@@ -18,7 +19,8 @@ class LoginScreen extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isLoggedIn: false
+      isLoggedIn: false,
+      error: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -35,6 +37,7 @@ class LoginScreen extends React.Component {
       let email = await AsyncStorage.getItem('UserEmail')
       this.logIn(email)
     } catch (error) {
+      this.setState({error: error})
       console.log('Error in retrieving user email details' + error)
     }
   }
@@ -53,22 +56,27 @@ class LoginScreen extends React.Component {
         password: this.state.password
       }
     }).then((response) => {
-      try {
-        AsyncStorage.setItem('UserToken', response.data.signinUser.token)
-        AsyncStorage.setItem('UserEmail', this.state.email)
-        AsyncStorage.setItem('UserId', '')
-        this.logIn(this.state.email)
-      } catch (error) {
-        console.log('Storing user token failed.' + error)
+      if (response.data) {
+        try {
+          AsyncStorage.setItem('UserToken', response.data.signinUser.token)
+          AsyncStorage.setItem('UserEmail', this.state.email)
+          AsyncStorage.setItem('UserId', '')
+          this.logIn(this.state.email)
+        } catch (error) {
+          console.log('Storing user token failed.' + error)
+        }
       }
       navigate('Home', {
         email: this.state.email
       })
+    }).catch((error) => {
+      this.setState({error: error})
     })
   }
 
   logIn (email) {
     if (email) {
+      this.setState({error: ''})
       this.setState({
         isLoggedIn: true,
         email: email
@@ -102,15 +110,44 @@ class LoginScreen extends React.Component {
 
   render () {
     return (
-      <Login
-        {...this.props}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        logOut={this.logOut}
-        {...this.state}
-      />
+      <View>
+        <View style={styles.container} >
+          <Text style={styles.text}> Welcome to TASK GURU!</Text>
+          <TouchableOpacity onPress={() => this.navigateFurther()}>
+            <Image style={styles.image}
+              source={require('./../images/Slice.png')}
+            />
+          </TouchableOpacity>
+        </View>
+        <Notification error={this.state.error} />
+        <Login
+          {...this.props}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          logOut={this.logOut}
+          {...this.state}
+        />
+      </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+    fontStyle: 'italic',
+    fontWeight: '500',
+    paddingBottom: 15,
+    paddingTop: 10
+  },
+  image: {
+    marginTop: 5
+  },
+  container: {
+    alignItems: 'center',
+    height: 'auto',
+    overflow: 'visible'
+  }
+})
 
 export default graphql(signinUser)(LoginScreen)
