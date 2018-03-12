@@ -45,16 +45,6 @@ export default class Login extends React.Component {
     )
   }
 
-  navigateFurther () {
-    const { navigate } = this.props.navigation
-
-    if (this.props.isLoggedIn) {
-      navigate('Home', {
-        email: this.props.email
-      })
-    }
-  }
-
   render () {
     return (
       <View>

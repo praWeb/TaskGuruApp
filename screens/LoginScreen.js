@@ -108,6 +108,16 @@ class LoginScreen extends React.Component {
     })
   }
 
+  navigateFurther () {
+    const { navigate } = this.props.navigation
+
+    if (this.state.isLoggedIn) {
+      navigate('Home', {
+        email: this.state.email
+      })
+    }
+  }
+
   render () {
     return (
       <View>
