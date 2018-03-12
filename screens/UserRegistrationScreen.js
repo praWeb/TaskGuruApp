@@ -67,7 +67,7 @@ class UserRegistrationScreen extends Component {
   render () {
     return (
       <View>
-        <Notification response={this.state.response} error={this.state.error} />
+        <Notification error={this.state.error} />
         <Registration
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}

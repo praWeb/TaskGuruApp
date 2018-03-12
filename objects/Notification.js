@@ -14,26 +14,48 @@ export default class Notification extends Component {
     }
   }
   processResponse (response) {
-    console.log(response)
-    return response
+    if (response.error && response.error.graphQLErrors) {
+      return this.processErrors(response.error)
+    } else if (response.success) {
+      return this.processSuccess(response.success)
+    }
+  }
+
+  processSuccess (successResponse) {
+    return {
+      type: 'success',
+      icon: 'thumbs-up',
+      message: successResponse
+    }
   }
 
   processErrors (error) {
-    if (error && error.graphQLErrors) {
-      return error.graphQLErrors[0].message
+    return {
+      type: 'error',
+      icon: 'thumbs-down',
+      message: error.graphQLErrors[0].message
     }
   }
+
+  renderMessage (message) {
+    return (
+      <View style={styles.media}>
+        <Icon type='font-awesome' name={message.icon} iconStyle={[styles.mediaImage, styles[message.type]]} />
+        <Text style={[styles.text, styles[message.type]]}>
+          { message.message }
+        </Text>
+      </View>
+    )
+  }
+
   render () {
-    this.processResponse(this.props.response)
-    let errors = this.processErrors(this.props.error) || []
+    let message = this.processResponse(this.props) || {}
     return (
       <View>
-        <View style={styles.media}>
-          <Icon type='font-awesome' name='user' iconStyle={styles.mediaImage} />
-          <Text style={[styles.text, styles.error]}>
-            { errors }
-          </Text>
-        </View>
+        {/* Show notification only if there is a message */}
+        {
+          message.type && this.renderMessage(message)
+        }
       </View>
     )
   }
@@ -42,18 +64,23 @@ export default class Notification extends Component {
 const styles = StyleSheet.create({
   text: {
     fontWeight: '500',
-    padding: 20
+    padding: 20,
+    fontSize: 15
+  },
+  success: {
+    color: '#00cc00',
   },
   error: {
-    color: '#841584',
-    fontSize: 15
+    color: '#ff704d',
   },
   media: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-    marginBottom: 10
+    // justifyContent: 'space-around',
+    marginTop: 10
+  },
+  mediaImage: {
+    marginLeft: 15
   },
   mediaText: {
     fontWeight: '300'

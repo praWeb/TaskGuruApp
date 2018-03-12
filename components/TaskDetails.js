@@ -18,9 +18,6 @@ export default class TaskDetails extends React.Component {
   }
 
   updateStatus (status) {
-    console.log("in update status component")
-    console.log(status)
-    console.log(this.props)
     this.setState({status: status})
     this.props.updateStatus(status)
   }
@@ -69,7 +66,6 @@ export default class TaskDetails extends React.Component {
             <Text style={styles.mediaText}> { moment(task.createdAt).format('YYYY-MM-DD') } </Text>
           </View>
         </View>
-
       </View>
     )
   }
