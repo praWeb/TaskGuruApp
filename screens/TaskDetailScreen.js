@@ -10,11 +10,13 @@ import { TaskDetailsQuery } from '../server/queries.js'
 
 // Components
 import TaskDetails from './../components/TaskDetails'
+import Notification from './../objects/Notification'
 
 class TaskDetailScreen extends React.Component {
   render () {
     return (
       <View>
+        <Notification error={} success={} />
         { !this.props.data.loading && this.props.data.Task &&
           <TaskDetails task={this.props.data.Task} />
         }
