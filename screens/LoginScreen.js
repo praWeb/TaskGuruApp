@@ -60,7 +60,6 @@ class LoginScreen extends React.Component {
         try {
           AsyncStorage.setItem('UserToken', response.data.signinUser.token)
           AsyncStorage.setItem('UserEmail', this.state.email)
-          AsyncStorage.setItem('UserId', '')
           this.logIn(this.state.email)
         } catch (error) {
           console.log('Storing user token failed.' + error)

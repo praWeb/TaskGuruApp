@@ -2,7 +2,8 @@
 import React, { Component } from 'react'
 
 // React Native
-import { View, Text, StyleSheet, Image, Button } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
+import { Button } from 'react-native-paper'
 
 export default class Introduction extends Component {
   render () {
@@ -17,18 +18,20 @@ export default class Introduction extends Component {
         </View>
         <View style={styles.buttonContainer}>
           <View style={styles.button} >
-            <Button
+            <Button raised primary
               onPress={() => navigate('TaskCreate')}
-              title='Create Tasks'
-            />
+            >
+              Create Tasks
+            </Button>
           </View>
           <View style={styles.button} >
-            <Button
+            <Button raised primary
               onPress={() => navigate('TaskLists', {
                 userId: this.props.data.User.id
               })}
-              title='View Tasks'
-            />
+            >
+              View Tasks
+            </Button>
           </View>
         </View>
       </View>

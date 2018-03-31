@@ -2,7 +2,8 @@
 import React, { Component } from 'react'
 
 // React-Native
-import { View, Text, Button, TextInput } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { TextInput, Button, Title } from 'react-native-paper'
 
 export default class Registration extends Component {
   render () {
@@ -10,21 +11,38 @@ export default class Registration extends Component {
     const handleSubmit = this.props.handleSubmit
 
     return (
-      <View>
-        <Text style={{padding: 15, alignItems: 'center'}}> Create Profile </Text>
-        <View style={{padding: 15}}>
-          <TextInput placeholder='Name' value={this.props.name} onChangeText={(text) => handleChange(text, 'name')} />
-        </View>
-        <View style={{padding: 15}}>
-          <TextInput placeholder='Email' keyboardType='email-address' value={this.props.email} onChangeText={(text) => handleChange(text, 'email')} />
-        </View>
-        <View style={{padding: 15}}>
-          <TextInput placeholder='Password' secureTextEntry value={this.props.password} onChangeText={(text) => handleChange(text, 'password')} />
-        </View>
-        <View style={{padding: 15}}>
-          <Button title='Register' onPress={handleSubmit} />
-        </View>
+      <View style={styles.container}>
+        <Title> Create Profile </Title>
+        <TextInput
+          label='Name'
+          placeholder='Name'
+          value={this.props.name}
+          onChangeText={(text) => handleChange(text, 'name')}
+        />
+        <TextInput
+          label='Email'
+          placeholder='Enter in your email address'
+          keyboardType='email-address'
+          value={this.props.email}
+          onChangeText={(text) => handleChange(text, 'email')}
+        />
+        <TextInput
+          label='Password'
+          placeholder='Enter your password'
+          secureTextEntry
+          value={this.props.password}
+          onChangeText={(text) => handleChange(text, 'password')}
+        />
+        <Button raised primary onPress={handleSubmit}>
+          Register
+        </Button>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 15
+  }
+})

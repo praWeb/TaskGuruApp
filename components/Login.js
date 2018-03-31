@@ -2,7 +2,8 @@
 import React from 'react'
 
 // React Native
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { TextInput, Button } from 'react-native-paper'
 
 export default class Login extends React.Component {
   loggedIn () {
@@ -11,24 +12,30 @@ export default class Login extends React.Component {
     return (
       <View style={styles.loginContainer}>
         <TextInput
-          style={styles.heading}
-          placeholder='Email'
+          style={styles.inputText}
+          placeholder='Enter your email address'
+          label='Email'
           value={this.props.email}
           onChangeText={(text) => this.props.handleChange(text, 'email')}
         />
         <TextInput
-          style={styles.heading}
-          placeholder='Password'
+          style={styles.inputText}
+          placeholder='Enter your password'
+          label='Password'
           secureTextEntry
           value={this.props.password}
           onChangeText={(text) => this.props.handleChange(text, 'password')}
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button} >
-            <Button title='New User' onPress={() => navigate('UserRegistration')} />
+            <Button raised primary onPress={() => navigate('UserRegistration')}>
+              New User
+            </Button>
           </View>
           <View style={styles.button}>
-            <Button title='Login' onPress={this.props.handleSubmit} />
+            <Button raised primary onPress={this.props.handleSubmit} >
+              Login
+            </Button>
           </View>
         </View>
       </View>
@@ -39,7 +46,9 @@ export default class Login extends React.Component {
     return (
       <View style={styles.buttonContainer}>
         <View style={styles.button} >
-          <Button title='Logout' onPress={this.props.logOut} />
+          <Button raised primary onPress={this.props.logOut}>
+            Logout
+          </Button>
         </View>
       </View>
     )
@@ -64,10 +73,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: 'auto'
   },
-  heading: {
-    fontSize: 15,
-    fontWeight: '700',
-    margin: 15,
+  inputText: {
+    marginLeft: 15,
+    marginRight: 15,
     width: 'auto',
     padding: 5
   },

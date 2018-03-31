@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 // React native
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
+import { Card, CardActions, CardContent, Paragraph, Button } from 'react-native-paper'
 
 // App Status Colours
 import * as colors from './../constants/statusColors.json'
@@ -32,18 +33,40 @@ export default class TaskList extends Component {
 
   }
 
+  // renderTask (task) {
+  //   const { navigate } = this.props.navigation
+  //   return (
+  //     <View style={styles.taskView} >
+  //       <TouchableOpacity onPress={() => navigate('TaskDetail', {taskId: task.id})}>
+  //         <View style={{ borderLeftWidth: 5, borderLeftColor: colors[task.status], borderStyle: 'solid', flex: 1 }}>
+  //           <Text style={styles.taskTitle}>
+  //             {task.title}
+  //           </Text>
+  //           <Text style={styles.taskContent}> { task.description } </Text>
+  //         </View>
+  //       </TouchableOpacity>
+  //     </View>
+  //   )
+  // }
+
   renderTask (task) {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.taskView} >
-        <TouchableOpacity onPress={() => navigate('TaskDetail', {taskId: task.id})}>
-          <View style={{ borderLeftWidth: 5, borderLeftColor: colors[task.status], borderStyle: 'solid', flex: 1 }}>
-            <Text style={styles.taskTitle}>
-              {task.title}
-            </Text>
-            <Text style={styles.taskContent}> { task.description } </Text>
-          </View>
-        </TouchableOpacity>
+          <Card>
+            <CardContent>
+              <Text style={styles.taskTitle}>
+                {task.title}
+              </Text>
+              <Paragraph style={styles.taskContent}>
+                { task.description }
+              </Paragraph>
+            </CardContent>
+            <CardActions>
+              <Button onPress={() => navigate('TaskDetail', {taskId: task.id})}> Edit </Button>
+              <Button> Delete </Button>
+            </CardActions>
+          </Card>
       </View>
     )
   }

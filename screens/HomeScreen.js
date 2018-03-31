@@ -27,10 +27,10 @@ class HomeScreen extends Component {
     }
   }
 
-  async storeUserId (props) {
+  storeUserId (props) {
     try {
-       // Store UserId details
-      await AsyncStorage.setItem('UserId', props.data.User.id)
+      // Store UserId details
+      AsyncStorage.setItem('UserId', props.data.User.id)
     } catch (error) {
       console.log('Error in storing UserId' + error)
     }

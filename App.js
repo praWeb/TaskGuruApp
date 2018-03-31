@@ -8,6 +8,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // React Native
 import { StackNavigator } from 'react-navigation'
+import { Provider as PaperProvider } from 'react-native-paper'
 
 // Screens
 import HomeScreen from './screens/HomeScreen'
@@ -37,7 +38,9 @@ export default class App extends Component {
   render () {
     return (
       <ApolloProvider client={client}>
-        <HomeNavigation />
+        <PaperProvider>
+          <HomeNavigation />
+        </PaperProvider>
       </ApolloProvider>
     )
   }
