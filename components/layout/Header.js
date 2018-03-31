@@ -15,15 +15,15 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
   banner: {
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
     backgroundColor: '#81c04d',
     flexDirection: 'row'
   },
   bannerContent: {
     textAlign: 'center',
     flex: 1,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#fff'
   }
