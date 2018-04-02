@@ -11,7 +11,6 @@ export default class TaskList extends Component {
     this.state = {
       viewableItems: []
     }
-    this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
   }
 
   renderTask (task) {
