@@ -50,7 +50,6 @@ class TaskCreateScreen extends Component {
 
   handleSubmit () {
     const { navigate } = this.props.navigation
-
     this.props.mutate({
       variables: {
         title: this.state.title,

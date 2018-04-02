@@ -80,21 +80,21 @@ export const TaskDetailsQuery = gql`
 
 // Task list
 export const TaskListQuery = gql`
-  query getTasks($id: ID!){
-    User(id: $id){
-      email
-      name
-      tasks {
+  query getTasks($id: ID!, $first: Int!, $skip: Int!){
+    allTasks(filter:{ user: { id: $id} }, first: $first, skip: $skip){
+      id
+      title
+      description
+      createdAt
+      updatedAt
+      status {
         id
         title
-        description
-        createdAt
-        updatedAt
-        status {
-          id
-          title
-          percentCompleted
-        }
+        percentCompleted
+      }
+      user {
+        name
+        email
       }
     }
   }
