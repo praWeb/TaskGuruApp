@@ -21,12 +21,34 @@ class TaskListScreen extends Component {
     this.state = {
       offset: 5,
       limit: TASKS_PER_REQUEST,
-      userId: ''
+      userId: '',
+      tasksPerPage: 3,
+      page: 0
     }
+
+    this.fetchNext = this.fetchNext.bind(this)
   }
 
   componentWillMount () {
     this.getUserId()
+  }
+
+  fetchNext () {
+    this.props.data.fetchMore({
+      variables: {
+        skip: this.state.page + this.state.tasksPerPage
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        console.log(prev)
+        console.log(fetchMoreResult)
+        if (!fetchMoreResult) return prev
+        let currentPage = this.state.page + this.state.tasksPerPage
+        this.setState({ page: currentPage })
+        return Object.assign({}, prev, {
+          allTasks: [...prev.allTasks, ...fetchMoreResult.allTasks]
+        })
+      }
+    })
   }
 
   async getUserId () {
@@ -39,13 +61,16 @@ class TaskListScreen extends Component {
   }
 
   render () {
+    console.log(this.props.data)
     return (
       <Layout>
         <View style={styles.taskContainer}>
-          { !this.props.data.loading && this.props.data.User &&
+          { !this.props.data.loading && this.props.data.allTasks &&
             <TaskList
-              tasks={this.props.data.User.tasks}
-              navigation={this.props.navigation} />
+              tasks={this.props.data.allTasks}
+              navigation={this.props.navigation}
+              fetchNext={this.fetchNext}
+            />
           }
         </View>
       </Layout>
@@ -63,7 +88,9 @@ export default graphql(TaskListQuery, {
   options: (props) => {
     return {
       variables: {
-        id: props.navigation.state.params.userId
+        id: props.navigation.state.params.userId,
+        first: 3,
+        skip: 0
       }
     }
   }

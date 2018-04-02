@@ -2,12 +2,8 @@
 import React, { Component } from 'react'
 
 // React native
-import { View, Text, FlatList, StyleSheet, TouchableOpacity  } from 'react-native'
-import { Icon, List, ListItem } from 'react-native-elements'
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import { Card, CardActions, CardContent, Paragraph, Button } from 'react-native-paper'
-
-// App Status Colours
-import * as colors from './../constants/statusColors.json'
 
 export default class TaskList extends Component {
   constructor () {
@@ -16,21 +12,6 @@ export default class TaskList extends Component {
       viewableItems: []
     }
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
-    this.handleNext = this.handleNext.bind(this)
-    this.handlePrev = this.handlePrev.bind(this)
-  }
-
-  // REQUIRED for ReactNativePagination to work correctly
-  onViewableItemsChanged ({ viewableItems, changed }) {
-    this.setState({viewableItems})
-  }
-
-  handleNext () {
-
-  }
-
-  handlePrev () {
-
   }
 
   renderTask (task) {
@@ -59,15 +40,20 @@ export default class TaskList extends Component {
 
   render () {
     const tasks = this.props.tasks
+
     return (
-      <View style={{marginBottom: 50}}>
+      <View style={styles.container}>
         <FlatList
           data={tasks}
+          ref={r => this.refs}
           renderItem={({item}) =>
             this.renderTask(item)
           }
           keyExtractor={(item, index) => item.id}
           containerStyle={{ borderBottomWidth: 0, flexGrow: 1 }}
+          onViewableItemsChanged={this.onViewableItemsChanged}
+          onEndReached={this.props.fetchNext}
+          onEndThreshold={0}
         />
       </View>
     )
@@ -75,6 +61,9 @@ export default class TaskList extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: 50
+  },
   taskView: {
     width: '100%',
     paddingVertical: 15
