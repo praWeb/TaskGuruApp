@@ -3,14 +3,32 @@ import React, { Component } from 'react'
 
 // React native
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import { Card, CardActions, CardContent, Paragraph, Button } from 'react-native-paper'
+import { Card, CardActions, CardContent, Paragraph, Button, Modal } from 'react-native-paper'
 
 export default class TaskList extends Component {
   constructor () {
     super()
     this.state = {
-      viewableItems: []
+      viewableItems: [],
+      isModalVisible: false,
+      currentTaskId: ''
     }
+    this.openModal = this.openModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.deleteTask = this.deleteTask.bind(this)
+  }
+
+  openModal (taskId) {
+    this.setState({isModalVisible: true, currentTaskId: taskId })
+  }
+
+  closeModal () {
+    this.setState({isModalVisible: false, currentTaskId: '' })
+  }
+
+  deleteTask () {
+    this.props.deleteTask(this.state.currentTaskId)
+    this.closeModal()
   }
 
   renderTask (task) {
@@ -30,10 +48,26 @@ export default class TaskList extends Component {
           </CardContent>
           <CardActions>
             <Button onPress={() => navigate('TaskDetail', {taskId: task.id})}> Edit </Button>
-            <Button> Delete </Button>
+            <Button onPress={() => this.openModal(task.id)}> Delete </Button>
           </CardActions>
         </Card>
       </View>
+    )
+  }
+
+  renderModal () {
+    return (
+      <Modal visible={this.state.isModalVisible} dismissable={true} onDismiss={this.closeModal}>
+        <Card>
+          <CardContent>
+            <Text>Are you sure you want to delete this task?</Text>
+          </CardContent>
+          <CardActions>
+            <Button onPress={this.closeModal}> Cancel </Button>
+            <Button onPress={this.deleteTask}> Yes </Button>
+          </CardActions>
+        </Card>
+      </Modal>
     )
   }
 
@@ -54,6 +88,7 @@ export default class TaskList extends Component {
           onEndReached={this.props.fetchNext}
           onEndThreshold={0}
         />
+        { this.renderModal() }
       </View>
     )
   }

@@ -51,6 +51,15 @@ export const createTask = gql`
   }
 `
 
+// Delete Task
+export const DeleteTask = gql`
+  mutation deleteTask($id: ID!) {
+    deleteTask(id: $id) {
+      id
+    }
+  }
+`
+
 // Task Details
 export const TaskDetailsQuery = gql`
   query getTasks($id: ID!) {
