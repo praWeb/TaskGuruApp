@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 // React Native
-import { View } from 'react-native'
+import { Container } from 'native-base' 
 
 // components
 import Header from './layout/Header'
@@ -10,10 +10,10 @@ import Header from './layout/Header'
 export default class Layout extends Component {
   render () {
     return (
-      <View>
+      <Container>
         <Header />
         {this.props.children}
-      </View>
+      </Container>
     )
   }
 }

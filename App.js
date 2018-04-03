@@ -55,14 +55,14 @@ export default class App extends Component {
         <Root>
           <AppLoading />
         </Root>
-      );
+      )
     }
     return (
-      <ApolloProvider client={client}>
-        <Root>
+      <Root>
+        <ApolloProvider client={client}>
           <HomeNavigation />
-        </Root>
-      </ApolloProvider>
+        </ApolloProvider>
+      </Root>
     )
   }
 }

@@ -5,12 +5,13 @@ import React, { Component } from 'react'
 import { View, StyleSheet, AsyncStorage } from 'react-native'
 
 // Graphql
-import { graphql } from 'react-apollo'
-import { TaskListQuery } from '../server/queries.js'
+import { graphql, compose } from 'react-apollo'
+import { TaskListQuery, DeleteTask } from '../server/queries.js'
 
 // Components
 import Layout from './../components/Layout'
 import TaskList from './../components/TaskList'
+import Notification from './../objects/Notification'
 
 // Pagination Constants
 const TASKS_PER_REQUEST = 5
@@ -23,10 +24,12 @@ class TaskListScreen extends Component {
       limit: TASKS_PER_REQUEST,
       userId: '',
       tasksPerPage: 3,
-      page: 0
+      page: 0,
+      error: ''
     }
 
     this.fetchNext = this.fetchNext.bind(this)
+    this.deleteTask = this.deleteTask.bind(this)
   }
 
   componentWillMount () {
@@ -39,8 +42,6 @@ class TaskListScreen extends Component {
         skip: this.state.page + this.state.tasksPerPage
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        console.log(prev)
-        console.log(fetchMoreResult)
         if (!fetchMoreResult) return prev
         let currentPage = this.state.page + this.state.tasksPerPage
         this.setState({ page: currentPage })
@@ -49,6 +50,28 @@ class TaskListScreen extends Component {
         })
       }
     })
+  }
+
+  deleteTask (taskId) {
+    this.props.data.loading = true
+    this.props.mutate({
+      variables: {
+        id: taskId
+      }
+    }).then((response) => {
+      this.props.data.loading = false
+      this.trimTasks(response.data.deleteTask.id)
+      this.setState({ error: ''})
+    }).catch((error) => {
+      this.props.data.loading = false
+      this.setState({error: error})
+      console.log("Error in deleting task")
+    })
+  }
+
+  trimTasks (taskId) {
+    let allTasks = this.props.data.allTasks
+    this.props.data.allTasks = Object.assign([], allTasks.filter(_task => _task.id !== taskId))
   }
 
   async getUserId () {
@@ -61,15 +84,16 @@ class TaskListScreen extends Component {
   }
 
   render () {
-    console.log(this.props.data)
     return (
       <Layout>
+        <Notification error={this.state.error} />
         <View style={styles.taskContainer}>
           { !this.props.data.loading && this.props.data.allTasks &&
             <TaskList
               tasks={this.props.data.allTasks}
               navigation={this.props.navigation}
               fetchNext={this.fetchNext}
+              deleteTask={this.deleteTask}
             />
           }
         </View>
@@ -84,7 +108,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export default graphql(TaskListQuery, {
+export default compose(
+graphql(TaskListQuery, {
   options: (props) => {
     return {
       variables: {
@@ -94,4 +119,6 @@ export default graphql(TaskListQuery, {
       }
     }
   }
-})(TaskListScreen)
+}),
+graphql(DeleteTask)
+)(TaskListScreen)

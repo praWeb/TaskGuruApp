@@ -3,14 +3,43 @@ import React, { Component } from 'react'
 
 // React native
 import { View, FlatList, StyleSheet } from 'react-native'
-import { Card, CardItem, Body, Text, Button } from 'native-base'
+import { Card, CardItem, Body, Text, Button, ActionSheet } from 'native-base'
+
+var BUTTONS = [
+  { text: 'Yes! Delete', icon: 'trash', iconColor: '#fa213b' },
+  { text: 'Cancel', icon: 'close', iconColor: '#25de5b' }
+];
 
 export default class TaskList extends Component {
   constructor () {
     super()
     this.state = {
-      viewableItems: []
+      viewableItems: [],
+      currentTaskId: ''
     }
+    this.openModal = this.openModal.bind(this)
+    this.deleteTask = this.deleteTask.bind(this)
+  }
+
+  openModal (taskId) {
+    this.setState({ currentTaskId: taskId })
+
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        title: 'Select an option'
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          this.deleteTask()
+        }
+        this.setState({ currentTaskId: '' })
+      }
+    )
+  }
+
+  deleteTask () {
+    this.props.deleteTask(this.state.currentTaskId)
   }
 
   renderTask (task) {
@@ -24,8 +53,8 @@ export default class TaskList extends Component {
             </Text>
           </CardItem>
           <CardItem>
-            <Body style={styles.taskContent}>
-              <Text>
+            <Body>
+              <Text style={styles.taskContent}>
                 { task.description }
               </Text>
             </Body>
@@ -36,7 +65,7 @@ export default class TaskList extends Component {
                 Edit
               </Text>
             </Button>
-            <Button>
+            <Button onPress={() => this.openModal(task.id) }>
               <Text>
                 Delete 
               </Text>
