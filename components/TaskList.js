@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 
 // React native
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import { Card, CardActions, CardContent, Paragraph, Button } from 'react-native-paper'
+import { View, FlatList, StyleSheet } from 'react-native'
+import { Card, CardItem, Body, Text, Button } from 'native-base'
 
 export default class TaskList extends Component {
   constructor () {
@@ -18,20 +18,30 @@ export default class TaskList extends Component {
     return (
       <View style={styles.taskView}>
         <Card>
-          <CardContent>
-            <TouchableOpacity onPress={() => navigate('TaskDetail', {taskId: task.id})}>
-              <Text style={styles.taskTitle}>
-                {task.title}
-              </Text>
-              <Paragraph style={styles.taskContent}>
+          <CardItem onPress={() => navigate('TaskDetail', {taskId: task.id})} header>
+            <Text style={styles.taskTitle}>
+              {task.title}
+            </Text>
+          </CardItem>
+          <CardItem>
+            <Body style={styles.taskContent}>
+              <Text>
                 { task.description }
-              </Paragraph>
-            </TouchableOpacity>
-          </CardContent>
-          <CardActions>
-            <Button onPress={() => navigate('TaskDetail', {taskId: task.id})}> Edit </Button>
-            <Button> Delete </Button>
-          </CardActions>
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem footer>
+            <Button onPress={() => navigate('TaskDetail', {taskId: task.id})}>
+              <Text>
+                Edit
+              </Text>
+            </Button>
+            <Button>
+              <Text>
+                Delete 
+              </Text>
+            </Button>
+          </CardItem>
         </Card>
       </View>
     )

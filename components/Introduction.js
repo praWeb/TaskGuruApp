@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 
 // React Native
-import { View, Text, StyleSheet, Image } from 'react-native'
-import { Button } from 'react-native-paper'
+import { View, StyleSheet, Image } from 'react-native'
+import { Text, Button } from 'native-base'
 
 export default class Introduction extends Component {
   render () {
@@ -21,7 +21,9 @@ export default class Introduction extends Component {
             <Button raised primary
               onPress={() => navigate('TaskCreate')}
             >
-              Create Tasks
+              <Text>
+                Create Tasks
+              </Text>
             </Button>
           </View>
           <View style={styles.button} >
@@ -30,7 +32,9 @@ export default class Introduction extends Component {
                 userId: this.props.data.User.id
               })}
             >
-              View Tasks
+              <Text>
+                View Tasks
+              </Text>
             </Button>
           </View>
         </View>

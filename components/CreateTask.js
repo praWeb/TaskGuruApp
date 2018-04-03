@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 // React Native
 import { View } from 'react-native'
-import { Text, Button, TextInput } from 'react-native-paper'
+import { Text, Button, Input } from 'native-base'
 
 export default class CreateTask extends Component {
   render () {
@@ -11,7 +11,7 @@ export default class CreateTask extends Component {
       <View style={{padding: 15}}>
         <Text style={{alignItems: 'center'}}> Create Task </Text>
         <View>
-          <TextInput
+          <Input
             label='Title'
             placeholder='Task title'
             autoCapitalize='sentences'
@@ -20,7 +20,7 @@ export default class CreateTask extends Component {
           />
         </View>
         <View>
-          <TextInput
+          <Input
             label='Description'
             placeholder='Task description in detail'
             multiline
@@ -31,7 +31,9 @@ export default class CreateTask extends Component {
         </View>
         <View>
           <Button raised primary onPress={this.props.handleSubmit}>
-            Create Task
+            <Text>
+              Create Task
+            </Text>
           </Button>
         </View>
       </View>

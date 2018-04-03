@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 // React-Native
 import { View, StyleSheet } from 'react-native'
-import { TextInput, Button, Title } from 'react-native-paper'
+import { Input, Text, Button, Title } from 'native-base'
 
 export default class Registration extends Component {
   render () {
@@ -13,20 +13,20 @@ export default class Registration extends Component {
     return (
       <View style={styles.container}>
         <Title> Create Profile </Title>
-        <TextInput
+        <Input
           label='Name'
           placeholder='Name'
           value={this.props.name}
           onChangeText={(text) => handleChange(text, 'name')}
         />
-        <TextInput
+        <Input
           label='Email'
           placeholder='Enter in your email address'
           keyboardType='email-address'
           value={this.props.email}
           onChangeText={(text) => handleChange(text, 'email')}
         />
-        <TextInput
+        <Input
           label='Password'
           placeholder='Enter your password'
           secureTextEntry
@@ -34,7 +34,9 @@ export default class Registration extends Component {
           onChangeText={(text) => handleChange(text, 'password')}
         />
         <Button raised primary onPress={handleSubmit}>
-          Register
+          <Text>
+            Register
+          </Text>
         </Button>
       </View>
     )

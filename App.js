@@ -8,7 +8,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // React Native
 import { StackNavigator } from 'react-navigation'
-import { Provider as PaperProvider } from 'react-native-paper'
+import { Root } from 'native-base'
+import { Font, AppLoading } from "expo";
 
 // Screens
 import HomeScreen from './screens/HomeScreen'
@@ -35,12 +36,32 @@ const HomeNavigation = StackNavigator({
 })
 
 export default class App extends Component {
+  constructor (props) {
+    super(props);
+    this.state = { loading: true }
+  }
+
+  async componentWillMount () {
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    })
+    this.setState({ loading: false });
+  }
+
   render () {
+    if (this.state.loading) {
+      return (
+        <Root>
+          <AppLoading />
+        </Root>
+      );
+    }
     return (
       <ApolloProvider client={client}>
-        <PaperProvider>
+        <Root>
           <HomeNavigation />
-        </PaperProvider>
+        </Root>
       </ApolloProvider>
     )
   }

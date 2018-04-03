@@ -19,6 +19,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo/vector-icons": "^6.3.1",
     "apollo-cache-inmemory": "^1.0.0",
     "apollo-client": "^2.2.8",
     "apollo-link-http": "^1.1.0",
@@ -28,13 +29,13 @@
     "graphql": "^0.11.7",
     "graphql-tag": "^2.5.0",
     "moment": "^2.20.1",
+    "native-base": "^2.4.1",
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-apollo": "^2.1.0",
     "react-native": "0.50.3",
     "react-native-elements": "^0.19.0",
     "react-native-keyboard-aware-scroll-view": "^0.4.3",
-    "react-native-paper": "^1.2.4",
     "react-navigation": "^1.0.0-beta.27",
     "react-router-native": "^4.2.0"
   }

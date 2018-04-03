@@ -3,7 +3,7 @@ import React from 'react'
 
 // React Native
 import { View, StyleSheet } from 'react-native'
-import { TextInput, Button } from 'react-native-paper'
+import { Input, Text, Button } from 'native-base'
 
 export default class Login extends React.Component {
   loggedIn () {
@@ -11,14 +11,14 @@ export default class Login extends React.Component {
 
     return (
       <View style={styles.loginContainer}>
-        <TextInput
+        <Input
           style={styles.inputText}
           placeholder='Enter your email address'
           label='Email'
           value={this.props.email}
           onChangeText={(text) => this.props.handleChange(text, 'email')}
         />
-        <TextInput
+        <Input
           style={styles.inputText}
           placeholder='Enter your password'
           label='Password'
@@ -29,12 +29,16 @@ export default class Login extends React.Component {
         <View style={styles.buttonContainer}>
           <View style={styles.button} >
             <Button raised primary onPress={() => navigate('UserRegistration')}>
-              New User
+              <Text>
+                New User
+              </Text>
             </Button>
           </View>
           <View style={styles.button}>
-            <Button raised primary onPress={this.props.handleSubmit} >
-              Login
+            <Button raised primary onPress={this.props.handleSubmit}>
+              <Text>
+                Login
+              </Text>
             </Button>
           </View>
         </View>
@@ -47,7 +51,9 @@ export default class Login extends React.Component {
       <View style={styles.buttonContainer}>
         <View style={styles.button} >
           <Button raised primary onPress={this.props.logOut}>
-            Logout
+            <Text>
+              Logout
+            </Text>
           </Button>
         </View>
       </View>
