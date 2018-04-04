@@ -49,6 +49,8 @@ class LoginScreen extends React.Component {
   }
 
   async handleSubmit () {
+    console.log("About to handle")
+    console.log(this.state)
     const { navigate } = this.props.navigation
     this.props.mutate({
       variables: {
@@ -64,11 +66,14 @@ class LoginScreen extends React.Component {
         } catch (error) {
           console.log('Storing user token failed.' + error)
         }
+      } else {
+        console.log("error occurred...")
       }
       navigate('Home', {
         email: this.state.email
       })
     }).catch((error) => {
+      console.log("Error in logging in", error)
       this.setState({error: error})
     })
   }

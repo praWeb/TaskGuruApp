@@ -3,7 +3,7 @@ import React from 'react'
 
 // React Native
 import { View, StyleSheet } from 'react-native'
-import { Input, Text, Button } from 'native-base'
+import { Input, Item, Text, Button } from 'native-base'
 
 export default class Login extends React.Component {
   loggedIn () {
@@ -11,30 +11,32 @@ export default class Login extends React.Component {
 
     return (
       <View style={styles.loginContainer}>
-        <Input
-          style={styles.inputText}
-          placeholder='Enter your email address'
-          label='Email'
-          value={this.props.email}
-          onChangeText={(text) => this.props.handleChange(text, 'email')}
-        />
-        <Input
-          style={styles.inputText}
-          placeholder='Enter your password'
-          label='Password'
-          secureTextEntry
-          value={this.props.password}
-          onChangeText={(text) => this.props.handleChange(text, 'password')}
-        />
+        <Item>
+          <Input
+            style={styles.inputText}
+            placeholder='Email'
+            value={this.props.email}
+            onChangeText={(text) => this.props.handleChange(text, 'email')}
+          />
+        </Item>
+        <Item>
+          <Input
+            style={styles.inputText}
+            placeholder='Password'
+            secureTextEntry
+            value={this.props.password}
+            onChangeText={(text) => this.props.handleChange(text, 'password')}
+          />
+        </Item>
         <View style={styles.buttonContainer}>
-          <View style={styles.button} >
+          <View>
             <Button raised primary onPress={() => navigate('UserRegistration')}>
               <Text>
                 New User
               </Text>
             </Button>
           </View>
-          <View style={styles.button}>
+          <View>
             <Button raised primary onPress={this.props.handleSubmit}>
               <Text>
                 Login
@@ -77,7 +79,8 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   loginContainer: {
     marginTop: 5,
-    width: 'auto'
+    width: 'auto',
+    padding: 15
   },
   inputText: {
     marginLeft: 15,

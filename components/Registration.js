@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 // React-Native
 import { View, StyleSheet } from 'react-native'
-import { Input, Text, Button, Title } from 'native-base'
+import { Input, H3, Item, Text, Button, Title } from 'native-base'
 
 export default class Registration extends Component {
   render () {
@@ -12,28 +12,34 @@ export default class Registration extends Component {
 
     return (
       <View style={styles.container}>
-        <Title> Create Profile </Title>
-        <Input
-          label='Name'
-          placeholder='Name'
-          value={this.props.name}
-          onChangeText={(text) => handleChange(text, 'name')}
-        />
-        <Input
-          label='Email'
-          placeholder='Enter in your email address'
-          keyboardType='email-address'
-          value={this.props.email}
-          onChangeText={(text) => handleChange(text, 'email')}
-        />
-        <Input
-          label='Password'
-          placeholder='Enter your password'
-          secureTextEntry
-          value={this.props.password}
-          onChangeText={(text) => handleChange(text, 'password')}
-        />
-        <Button raised primary onPress={handleSubmit}>
+        <H3 style={{ alignSelf: 'center' }}> Create Profile </H3>
+        <Item style={{ marginTop: 10 }} >
+          <Input
+            label='Name'
+            placeholder='Name'
+            value={this.props.name}
+            onChangeText={(text) => handleChange(text, 'name')}
+          />
+        </Item>
+        <Item style={{ marginTop: 10 }}>
+          <Input
+            label='Email'
+            placeholder='Enter in your email address'
+            keyboardType='email-address'
+            value={this.props.email}
+            onChangeText={(text) => handleChange(text, 'email')}
+          />
+        </Item>
+        <Item style={{ marginTop: 10 }}>
+          <Input
+            label='Password'
+            placeholder='Enter your password'
+            secureTextEntry
+            value={this.props.password}
+            onChangeText={(text) => handleChange(text, 'password')}
+          />
+        </Item>
+        <Button primary onPress={handleSubmit} style={{ alignSelf: 'center', marginTop: 20 }}>
           <Text>
             Register
           </Text>

@@ -2,41 +2,37 @@
 import React, { Component } from 'react'
 
 // React Native
-import { View } from 'react-native'
-import { Text, Button, Input } from 'native-base'
+import { Content, H3, Text, Button, Input, Item } from 'native-base'
 
 export default class CreateTask extends Component {
   render () {
     return (
-      <View style={{padding: 15}}>
-        <Text style={{alignItems: 'center'}}> Create Task </Text>
-        <View>
+      <Content style={{ padding: 15 }}>
+        <H3 style={{ alignSelf: 'center' }}> Create Task </H3>
+        <Text style={{ alignSelf: 'center', fontStyle: 'italic' }}> (Try to fill in as much as you can) </Text>
+        <Item style={{ marginTop: 10 }}>
           <Input
-            label='Title'
             placeholder='Task title'
             autoCapitalize='sentences'
             value={this.props.title}
             onChangeText={(text) => this.props.handleChange(text, 'title')}
           />
-        </View>
-        <View>
+        </Item>
+        <Item style={{marginTop: 20, paddingBottom: 30}}>
           <Input
-            label='Description'
             placeholder='Task description in detail'
             multiline
             autoCapitalize='sentences'
             value={this.props.description}
             onChangeText={(text) => this.props.handleChange(text, 'description')}
           />
-        </View>
-        <View>
-          <Button raised primary onPress={this.props.handleSubmit}>
-            <Text>
-              Create Task
-            </Text>
-          </Button>
-        </View>
-      </View>
+        </Item>
+        <Button primary onPress={this.props.handleSubmit} style={{ marginTop: 15, alignSelf: 'center' }}>
+          <Text>
+            Create Task
+          </Text>
+        </Button>
+      </Content>
     )
   }
 }

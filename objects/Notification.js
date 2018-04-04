@@ -30,10 +30,11 @@ export default class Notification extends Component {
   }
 
   processErrors (error) {
+    const message = error.graphQLErrors[0] !== undefined ? error.graphQLErrors[0].message : error.message
     return {
       type: 'error',
       icon: 'thumbs-down',
-      message: error.graphQLErrors[0].message
+      message: message
     }
   }
 
