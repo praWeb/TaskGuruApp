@@ -2,9 +2,16 @@ import gql from 'graphql-tag'
 
 // Create User
 export const createUser = gql`
-  mutation createUser($name: String!, $email: String!, $password: String!) {
-    createUser(name: $name, authProvider: {
-      email: { email: $email, password: $password } } ) {
+  mutation createUser($id: ID!, $isVerified: Boolean!, $createdAt: String!, $name: String!, $email: String!, $password: String!, $updatedAt: String!) {
+    createUser(input: {
+      id: $id,
+      createdAt: $createdAt,
+      updatedAt: $updatedAt,
+      name: $name,
+      isVerified: $isVerified,
+      email: $email,
+      password: $password
+    }) {
       id
       name
       createdAt
@@ -14,19 +21,10 @@ export const createUser = gql`
 
 // Query to get the user details
 export const getUserDetails = gql`
-  query UserDetails($email: String!) {
-    User(email: $email){
+  query getUserDetails($email: String!, $password: String!) {
+    getUserDetails(input: { email: $email, password: $password }){
       id
       name
-    }
-  }
-`
-
-// Query for signing in
-export const signinUser = gql`
-  mutation signinUser($email: String!, $password: String!) {
-    signinUser(email: { email: $email, password: $password }) {
-      token
     }
   }
 `
@@ -34,7 +32,7 @@ export const signinUser = gql`
 // Query for creating task
 export const createTask = gql`
   mutation createTask($title: String!, $description: String!, $userId: ID!, $statusId: ID!) {
-    createTask(title: $title, description: $description, userId: $userId, statusId: $statusId) {
+    addTask(title: $title, description: $description, userId: $userId, statusId: $statusId) {
         id
         user {
           name
@@ -113,7 +111,7 @@ export const TaskListQuery = gql`
 
 export const UpdateStatus = gql`
   mutation updateStatusForTask($taskID: ID!, $statusID: ID!){
-    updateTask(id: $taskID, statusId: $statusID){
+    putTask(id: $taskID, statusId: $statusID){
       id
       user {
         name

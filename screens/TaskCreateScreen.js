@@ -11,6 +11,9 @@ import { createTask } from '../server/queries.js'
 // Components
 import CreateTask from './../components/CreateTask'
 
+// lib
+import uuidV4 from 'uuid/v4'
+
 class TaskCreateScreen extends Component {
   constructor (props) {
     super(props)

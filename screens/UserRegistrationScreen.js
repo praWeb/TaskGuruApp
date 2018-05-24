@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 
 // Graphql
-import { graphql, compose } from 'react-apollo'
-import { createUser, signinUser } from '../server/queries.js'
+import { graphql } from 'react-apollo'
+import { createUser } from '../server/queries.js'
 
 // React-native
 import { View, AsyncStorage } from 'react-native'
@@ -11,6 +11,9 @@ import { View, AsyncStorage } from 'react-native'
 // Internal Components
 import Registration from '../components/Registration.js'
 import Notification from '../objects/Notification.js'
+
+// lib
+import uuidV4 from 'uuid/v4'
 
 class UserRegistrationScreen extends Component {
   constructor (props) {
@@ -30,28 +33,31 @@ class UserRegistrationScreen extends Component {
 
   handleSubmit () {
     const { navigate } = this.props.navigation
+    
     this.props.createUser({
-      variables: { email: this.state.email, name: this.state.name, password: this.state.password }
+      variables: {
+        id: uuidV4(),
+        isVerified: true,
+        createdAt: new Date().getTime(),
+        updatedAt: new Date().getTime(),
+        email: this.state.email,
+        name: this.state.name,
+        password: this.state.password
+      }
     }).then((response) => {
       if (response.data) {
-        this.props.signinUser({
-          variables: {
-            email: this.state.email,
-            password: this.state.password
-          }
-        }).then((response) => {
-          this.storeUserDetails(response)
-          navigate('Home', {email: this.state.email})
-        })
+        this.storeUserDetails(response)
+        navigate('Home', {email: this.state.email})
       }
     }).catch((error) => {
+      console.log(error)
       this.setState({error: error})
     })
   }
 
   async storeUserDetails (response) {
     try {
-      AsyncStorage.setItem('UserToken', response.data.signinUser.token)
+      AsyncStorage.setItem('UserToken', response.data.createUser.id)
       AsyncStorage.setItem('UserEmail', this.state.email)
     } catch (error) {
       console.log('Storing user token failed.' + error)
@@ -78,11 +84,4 @@ class UserRegistrationScreen extends Component {
   }
 }
 
-export default compose(
-  graphql(createUser, {
-    name: 'createUser'
-  }),
-  graphql(signinUser, {
-    name: 'signinUser'
-  })
-)(UserRegistrationScreen)
+export default graphql(createUser, { name: 'createUser' })(UserRegistrationScreen)

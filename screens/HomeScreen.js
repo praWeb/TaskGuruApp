@@ -52,8 +52,10 @@ class HomeScreen extends Component {
 export default graphql(getUserDetails, {
   options: (props) => {
     return {
+      fetchPolicy: 'network-only',
       variables: {
-        email: props.navigation.state.params.email
+        email: props.navigation.state.params.email,
+        password: props.navigation.state.params.password
       }
     }
   }

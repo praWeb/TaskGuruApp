@@ -14,6 +14,9 @@ export default class Notification extends Component {
     }
   }
   processResponse (response) {
+    console.log(response)
+    console.log(response.error)
+    console.log(response.error.graphQLErrors)
     if (response.error && response.error.graphQLErrors) {
       return this.processErrors(response.error)
     } else if (response.success) {

@@ -6,7 +6,7 @@ import { StyleSheet, View, AsyncStorage, Image, TouchableOpacity, Text } from 'r
 
 // Graphql
 import { graphql } from 'react-apollo'
-import { signinUser } from '../server/queries.js'
+import { getUserDetails } from '../server/queries.js'
 
 // Components
 import Login from './../components/Login'
@@ -29,7 +29,7 @@ class LoginScreen extends React.Component {
   }
 
   componentDidMount () {
-    this.verifyUser()
+    // this.verifyUser()
   }
 
   async verifyUser () {
@@ -58,7 +58,7 @@ class LoginScreen extends React.Component {
     }).then((response) => {
       if (response.data) {
         try {
-          AsyncStorage.setItem('UserToken', response.data.signinUser.token)
+          AsyncStorage.setItem('UserToken', response.data.getUserDetails.token)
           AsyncStorage.setItem('UserEmail', this.state.email)
           this.logIn(this.state.email)
         } catch (error) {
@@ -92,7 +92,6 @@ class LoginScreen extends React.Component {
     try {
       AsyncStorage.setItem('UserToken', '')
       AsyncStorage.setItem('UserEmail', '')
-      AsyncStorage.setItem('UserId', '')
       this.resetState()
     } catch (error) {
       console.log('Error while loggingout.' + error)
@@ -159,4 +158,16 @@ const styles = StyleSheet.create({
   }
 })
 
-export default graphql(signinUser)(LoginScreen)
+export default graphql(getUserDetails, {
+  name: 'getUserDetails',
+  options: (props) => {
+    console.log(props)
+    return {
+      fetchPolicy: 'network-only',
+      variables: {
+        email: props.email || "",
+        password: props.password || ""
+      }
+    }
+  }
+})(LoginScreen)

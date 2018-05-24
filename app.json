@@ -1,5 +1,5 @@
 {
-  "expo": {
+  "app": {
     "sdkVersion": "23.0.0",
     "name": "TaskGuru",
     "icon": "./images/app-icon.png",
@@ -11,5 +11,7 @@
     "android": {
       "package": "com.praweb.taskguru"
     }
-  }
+  },
+  "name": "TaskGuruApp",
+  "displayName": "TaskGuru"
 }

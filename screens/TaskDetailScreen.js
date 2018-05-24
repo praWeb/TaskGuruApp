@@ -54,11 +54,15 @@ class TaskDetailScreen extends React.Component {
 
 export default compose(
   graphql(UpdateStatus, {
-    name: 'updateStatus'
+    name: 'updateStatus',
+    options: {
+      fetchPolicy: 'network-only'
+    }
   }),
   graphql(TaskDetailsQuery, {
     options: (props) => {
       return {
+        fetchPolicy: 'network-only',
         variables: {
           id: props.navigation.state.params.taskId
         }
