@@ -50,7 +50,8 @@ class LoginScreen extends React.Component {
 
   async handleSubmit () {
     const { navigate } = this.props.navigation
-    this.props.mutate({
+    
+    this.props.getUserDetails({
       variables: {
         email: this.state.email,
         password: this.state.password
@@ -58,7 +59,7 @@ class LoginScreen extends React.Component {
     }).then((response) => {
       if (response.data) {
         try {
-          AsyncStorage.setItem('UserToken', response.data.getUserDetails.token)
+          AsyncStorage.setItem('UserId', response.data.getUserDetails.id)
           AsyncStorage.setItem('UserEmail', this.state.email)
           this.logIn(this.state.email)
         } catch (error) {
@@ -90,7 +91,7 @@ class LoginScreen extends React.Component {
 
   logOut () {
     try {
-      AsyncStorage.setItem('UserToken', '')
+      AsyncStorage.setItem('UserId', '')
       AsyncStorage.setItem('UserEmail', '')
       this.resetState()
     } catch (error) {
@@ -161,6 +162,7 @@ const styles = StyleSheet.create({
 export default graphql(getUserDetails, {
   name: 'getUserDetails',
   options: (props) => {
+    console.log("*******")
     console.log(props)
     return {
       fetchPolicy: 'network-only',

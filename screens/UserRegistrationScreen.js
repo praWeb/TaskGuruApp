@@ -34,20 +34,26 @@ class UserRegistrationScreen extends Component {
   handleSubmit () {
     const { navigate } = this.props.navigation
     
-    this.props.createUser({
-      variables: {
-        id: uuidV4(),
-        isVerified: true,
-        createdAt: new Date().getTime(),
-        updatedAt: new Date().getTime(),
-        email: this.state.email,
-        name: this.state.name,
-        password: this.state.password
+    let input = 
+      {
+        "id": uuidV4(),
+        "isVerified": true,
+        "createdAt": new Date().getTime(),
+        "updatedAt": new Date().getTime(),
+        "email": this.state.email,
+        "name": this.state.name,
+        "password": this.state.password
       }
+    console.log(input)
+    this.props.createUser({
+      variables: input
     }).then((response) => {
-      if (response.data) {
+      console.log(response)
+      if (response.data && response.data.createUser) {
         this.storeUserDetails(response)
         navigate('Home', {email: this.state.email})
+      } else {
+        this.setState({error: 'Error in creating user'})
       }
     }).catch((error) => {
       console.log(error)
@@ -57,7 +63,7 @@ class UserRegistrationScreen extends Component {
 
   async storeUserDetails (response) {
     try {
-      AsyncStorage.setItem('UserToken', response.data.createUser.id)
+      AsyncStorage.setItem('UserID', response.data.createUser.id)
       AsyncStorage.setItem('UserEmail', this.state.email)
     } catch (error) {
       console.log('Storing user token failed.' + error)
