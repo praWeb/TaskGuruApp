@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 //  React-native
 import { View, Text, StyleSheet } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-vector-icons/FontAwesome'
 
 export default class Notification extends Component {
   constructor (props) {
@@ -40,7 +40,10 @@ export default class Notification extends Component {
   renderMessage (message) {
     return (
       <View style={styles.media}>
-        <Icon type='font-awesome' name={message.icon} iconStyle={[styles.mediaImage, styles[message.type]]} />
+        <View style={styles.mediaImage}>
+          {/* TODO: ICONS HAVE TO BE FIXED */}
+          {/* <Icon name={message.icon} color={styles[message.type]} /> */}
+        </View>
         <Text style={[styles.text, styles[message.type]]}>
           { message.message }
         </Text>
