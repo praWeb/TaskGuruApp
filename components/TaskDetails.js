@@ -3,7 +3,7 @@ import React from 'react'
 
 // React Native
 import { View, Text, Picker, StyleSheet } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-vector-icons/FontAwesome'
 
 // Moment
 import moment from 'moment'
@@ -58,11 +58,12 @@ export default class TaskDetails extends React.Component {
         </View>
         <View style={styles.media}>
           <View style={styles.media}>
-            <Icon type='font-awesome' name='user' iconStyle={styles.mediaImage} />
+          {/* TOOD: ICONS TO BE FIXED */}
+            {/* <Icon name='user' iconStyle={styles.mediaImage} /> */}
             <Text> { task.user.name.toUpperCase() } </Text>
           </View>
           <View style={styles.media}>
-            <Icon type='foundation' name='clock' iconStyle={styles.mediaImage} />
+            {/* <Icon name='clock' iconStyle={styles.mediaImage} /> */}
             <Text style={styles.mediaText}> { moment(task.createdAt).format('YYYY-MM-DD') } </Text>
           </View>
         </View>
